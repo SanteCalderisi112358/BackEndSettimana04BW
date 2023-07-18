@@ -1,7 +1,5 @@
 package BWentities;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,15 +19,15 @@ public class Biglietto extends Ticket {
 	@JoinColumn(name = "mezzo_id")
 	private Mezzo mezzo;
 
-	public Biglietto(LocalDate dataEmissione, PuntoEmissione puntoEmissione, boolean timbrato) {
-		super(dataEmissione, puntoEmissione);
+	public Biglietto(String dataEmissione, Tessera tessera, boolean timbrato, Mezzo mezzo) {
+		super(dataEmissione, tessera);
 		this.timbrato = timbrato;
+		this.mezzo = mezzo;
 	}
 
 	@Override
 	public String toString() {
-		return "Biglietto [timbrato=" + timbrato + ", id=" + id + ", dataEmissione=" + dataEmissione
-				+ ", puntoEmissione=" + puntoEmissione + "]";
+		return "Biglietto [timbrato=" + timbrato + "]";
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,18 +24,18 @@ public abstract class Ticket {
 	@GeneratedValue
 	protected UUID id;
 	protected LocalDate dataEmissione;
-	// @ManyToOne
-	protected PuntoEmissione puntoEmissione;
+	@ManyToOne
+	protected Tessera tessera;
 
-	public Ticket(LocalDate dataEmissione, PuntoEmissione puntoEmissione) {
+	public Ticket(String dataEmissione, Tessera tessera) {
 
-		this.dataEmissione = dataEmissione;
-		this.puntoEmissione = puntoEmissione;
+		this.dataEmissione = LocalDate.parse(dataEmissione);
+		this.tessera = tessera;
 	}
 
 	@Override
 	public String toString() {
-		return "Ticket [id=" + id + ", dataEmissione=" + dataEmissione + ", puntoEmissione=" + puntoEmissione + "]";
+		return "Ticket [id=" + id + ", dataEmissione=" + dataEmissione + ", Tessera=" + tessera + "]";
 	}
 
 }

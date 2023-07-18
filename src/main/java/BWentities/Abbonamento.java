@@ -2,7 +2,6 @@ package BWentities;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
@@ -11,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+//@Entity
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,17 +20,15 @@ public class Abbonamento extends Ticket {
 
 	private LocalDate dataScadenza;
 
-	public Abbonamento(LocalDate dataEmissione, PuntoEmissione puntoEmissione, TipoAbbonamento tipoAbbonamento) {
-		super(dataEmissione, puntoEmissione);
+	public Abbonamento(String dataEmissione, Tessera tessera, TipoAbbonamento tipoAbbonamento, LocalDate dataScadenza) {
+		super(dataEmissione, tessera);
 		this.tipoAbbonamento = tipoAbbonamento;
+		this.dataScadenza = dataScadenza;
 	}
 
 	@Override
 	public String toString() {
-		return "Abbonamento [tipoAbbonamento=" + tipoAbbonamento + ", dataScadenza=" + dataScadenza + ", id=" + id
-				+ ", dataEmissione=" + dataEmissione + ", puntoEmissione=" + puntoEmissione + "]";
+		return "Abbonamento [tipoAbbonamento=" + tipoAbbonamento + ", dataScadenza=" + dataScadenza + "]";
 	}
-
-
 
 }

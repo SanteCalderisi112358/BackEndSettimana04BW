@@ -1,16 +1,9 @@
 package BWentities;
 
-import java.time.LocalDate;
-import java.util.Set;
-import java.util.UUID;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 import BWenum.StatoMezzo;
 import BWenum.TipoMezzo;
@@ -22,64 +15,42 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Mezzo {
+
 	@Id
-	@GeneratedValue
-	private UUID id;
-	private int capienza;
-	private TipoMezzo tipoMezzo;
+	private String targa;
+	@Enumerated(EnumType.STRING)
 	private StatoMezzo statoMezzo;
-	private LocalDate inizioPeriodoServizio;
-	private LocalDate finePeriodoServizio;
-	private LocalDate inizioPeriodoManutenzione;
-	private LocalDate finePeriodoManutenzione;
-	@OneToMany(mappedBy = "mezzo")
-	private Set<Biglietto> biglietti;
+	@Enumerated(EnumType.STRING)
+	private TipoMezzo tipoMezzo;
+	private int capienza;
+	private int corse;
 
-	@ManyToMany
-	@JoinTable(name = "mezzo_tratta", joinColumns = @JoinColumn(name = "mezzo_id"), inverseJoinColumns = @JoinColumn(name = "tratta_id"))
-	private Set<Tratta> tratte;
+//	@OneToMany
+//	private Set<Manutenzione> manutenzioni;
+//
+//	@OneToMany
+//	private Set<StoricoTratta> soricoTratta;
 
-// Costruttore per mezzo IN_SERVIZIO
-	public Mezzo(TipoMezzo tipoMezzo, LocalDate inizioPeriodoServizio, LocalDate finePeriodoServizio,
-			Set<Tratta> tratte) {
-		
+	public Mezzo(String targa, StatoMezzo statoMezzo, TipoMezzo tipoMezzo, int corse) {
+		this.targa = targa;
+		this.statoMezzo = statoMezzo;
 		this.tipoMezzo = tipoMezzo;
-		this.statoMezzo = StatoMezzo.IN_SERVIZIO;
-		this.inizioPeriodoServizio = inizioPeriodoServizio;
-		this.finePeriodoServizio = finePeriodoServizio;
-		this.tratte = tratte;
+		this.corse = corse;
 	}
 
-// Costruttore per mezzo IN_MANUTENZIONE
-	public Mezzo(TipoMezzo tipoMezzo, LocalDate inizioPeriodoManutenzione,
-			LocalDate finePeriodoManutenzione) {
-
-		this.tipoMezzo = tipoMezzo;
-		this.statoMezzo = StatoMezzo.IN_MANUTENZIONE;
-		this.inizioPeriodoManutenzione = inizioPeriodoManutenzione;
-		this.finePeriodoManutenzione = finePeriodoManutenzione;
-	}
-
-//Metodo per settare la capienza in base al tipo del mezzo
-	public void setcapienza() {
+	public void setCapienza() {
 		if (this.tipoMezzo == TipoMezzo.AUTOBUS) {
 			this.capienza = 58;
 		} else {
-			this.capienza = 100;
+			this.capienza = 98;
 		}
 	}
-
 	@Override
 	public String toString() {
-		if (this.statoMezzo == StatoMezzo.IN_MANUTENZIONE) {
-			return "Mezzo [id=" + id + ", capienza=" + capienza + ", tipoMezzo=" + tipoMezzo + ", statoMezzo="
-					+ statoMezzo + ", inizioPeriodoManutenzione=" + inizioPeriodoManutenzione
-					+ ", finePeriodoManutenzione=" + finePeriodoManutenzione + "]";
-		}else {
-			return "Mezzo [id=" + id + ", capienza=" + capienza + ", tipoMezzo=" + tipoMezzo + ", statoMezzo=" + statoMezzo +
-			           ", inizioPeriodoServizio=" + inizioPeriodoServizio + ", finePeriodoServizio=" + finePeriodoServizio +
-			           ", tratte=" + tratte + "]";
-		}
+		return "Mezzo [targa=" + targa + ", statoMezzo=" + statoMezzo + ", tipoMezzo=" + tipoMezzo + ", capienza="
+				+ capienza + ", corse=" + corse + "]";
 	}
+
 }
