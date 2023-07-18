@@ -1,7 +1,6 @@
 package BWentities;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,12 +38,12 @@ public class Mezzo {
 
 	@ManyToMany
 	@JoinTable(name = "mezzo_tratta", joinColumns = @JoinColumn(name = "mezzo_id"), inverseJoinColumns = @JoinColumn(name = "tratta_id"))
-	private List<Tratta> tratte;
+	private Set<Tratta> tratte;
 
-	// Costruttore per mezzo IN_SERVIZIO
-	public Mezzo(int capienza, TipoMezzo tipoMezzo, LocalDate inizioPeriodoServizio, LocalDate finePeriodoServizio,
-			List<Tratta> tratte) {
-		this.capienza = capienza;
+// Costruttore per mezzo IN_SERVIZIO
+	public Mezzo(TipoMezzo tipoMezzo, LocalDate inizioPeriodoServizio, LocalDate finePeriodoServizio,
+			Set<Tratta> tratte) {
+		
 		this.tipoMezzo = tipoMezzo;
 		this.statoMezzo = StatoMezzo.IN_SERVIZIO;
 		this.inizioPeriodoServizio = inizioPeriodoServizio;
@@ -52,14 +51,23 @@ public class Mezzo {
 		this.tratte = tratte;
 	}
 
-	// Costruttore per mezzo IN_MANUTENZIONE
-	public Mezzo(int capienza, TipoMezzo tipoMezzo, LocalDate inizioPeriodoManutenzione,
+// Costruttore per mezzo IN_MANUTENZIONE
+	public Mezzo(TipoMezzo tipoMezzo, LocalDate inizioPeriodoManutenzione,
 			LocalDate finePeriodoManutenzione) {
-		this.capienza = capienza;
+
 		this.tipoMezzo = tipoMezzo;
 		this.statoMezzo = StatoMezzo.IN_MANUTENZIONE;
 		this.inizioPeriodoManutenzione = inizioPeriodoManutenzione;
 		this.finePeriodoManutenzione = finePeriodoManutenzione;
+	}
+
+//Metodo per settare la capienza in base al tipo del mezzo
+	public void setcapienza() {
+		if (this.tipoMezzo == TipoMezzo.AUTOBUS) {
+			this.capienza = 58;
+		} else {
+			this.capienza = 100;
+		}
 	}
 
 	@Override
@@ -67,11 +75,11 @@ public class Mezzo {
 		if (this.statoMezzo == StatoMezzo.IN_MANUTENZIONE) {
 			return "Mezzo [id=" + id + ", capienza=" + capienza + ", tipoMezzo=" + tipoMezzo + ", statoMezzo="
 					+ statoMezzo + ", inizioPeriodoManutenzione=" + inizioPeriodoManutenzione
-					+ ", finePeriodoManutenzione=" + finePeriodoManutenzione + ", tratte=" + tratte + "]";
-		} else {
-			return "Mezzo [id=" + id + ", capienza=" + capienza + ", tipoMezzo=" + tipoMezzo + ", statoMezzo="
-					+ statoMezzo + ", inizioPeriodoServizio=" + inizioPeriodoServizio + ", finePeriodoServizio="
-					+ finePeriodoServizio + ", tratte=" + tratte + "]";
+					+ ", finePeriodoManutenzione=" + finePeriodoManutenzione + "]";
+		}else {
+			return "Mezzo [id=" + id + ", capienza=" + capienza + ", tipoMezzo=" + tipoMezzo + ", statoMezzo=" + statoMezzo +
+			           ", inizioPeriodoServizio=" + inizioPeriodoServizio + ", finePeriodoServizio=" + finePeriodoServizio +
+			           ", tratte=" + tratte + "]";
 		}
 	}
 }
