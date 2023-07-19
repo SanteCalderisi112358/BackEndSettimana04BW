@@ -6,20 +6,15 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 
-import BWdao.MezzoDao;
 import BWdao.PuntoEmissioneDao;
 import BWdao.TesseraDao;
 import BWdao.TicketDao;
 import BWdao.UtenteDao;
 import BWentities.Biglietto;
-import BWentities.Mezzo;
 import BWentities.RivenditoreAutorizzato;
 import BWentities.Tessera;
 import BWentities.Utente;
-import BWenum.StatoMezzo;
-import BWenum.TipoMezzo;
 import BWutils.JpaUtil;
 
 public class GestioneAziendaTrasporto {
@@ -32,7 +27,7 @@ public class GestioneAziendaTrasporto {
 		UtenteDao utenteDao = new UtenteDao(em);
 		TesseraDao tesseraDao = new TesseraDao(em);
 		TicketDao ticketDao = new TicketDao(em);
-		MezzoDao mezzodao = new MezzoDao(em);
+		// MezzoDao mezzodao = new MezzoDao(em);
 		PuntoEmissioneDao puntoEmissioneDao = new PuntoEmissioneDao(em);
 
 
@@ -62,28 +57,28 @@ public class GestioneAziendaTrasporto {
 		tesseraDao.save(tesseraLaura);
 
 		/* Creazione e salvataggio 10 mezzi */
-		Mezzo mezzo01 = new Mezzo("AA-432-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 12);
-		mezzo01.setCapienza();
-		Mezzo mezzo02 = new Mezzo("AB-321-GF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 23);
-		mezzo02.setCapienza();
-		Mezzo mezzo03 = new Mezzo("ER-456-HG", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 34);
-		mezzo03.setCapienza();
-		Mezzo mezzo04 = new Mezzo("NB-123-HG", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 65);
-		mezzo04.setCapienza();
-		Mezzo mezzo05 = new Mezzo("NH-765-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 7);
-		mezzo05.setCapienza();
-		Mezzo mezzo06 = new Mezzo("KJ-378-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 23);
-		mezzo06.setCapienza();
-		Mezzo mezzo07 = new Mezzo("JK-098-IO", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 13);
-		mezzo07.setCapienza();
-		Mezzo mezzo08 = new Mezzo("JK-766-JK", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 4);
-		mezzo08.setCapienza();
-		Mezzo mezzo09 = new Mezzo("GT-432-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 45);
-		mezzo09.setCapienza();
-		Mezzo mezzo10 = new Mezzo("YU-566-UI", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 56);
-		mezzo10.setCapienza();
-		Mezzo mezzo11 = new Mezzo("IU-879-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 32);
-		mezzo11.setCapienza();
+//		Mezzo mezzo01 = new Mezzo("AA-432-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 12);
+//		mezzo01.setCapienza();
+//		Mezzo mezzo02 = new Mezzo("AB-321-GF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 23);
+//		mezzo02.setCapienza();
+//		Mezzo mezzo03 = new Mezzo("ER-456-HG", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 34);
+//		mezzo03.setCapienza();
+//		Mezzo mezzo04 = new Mezzo("NB-123-HG", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 65);
+//		mezzo04.setCapienza();
+//		Mezzo mezzo05 = new Mezzo("NH-765-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 7);
+//		mezzo05.setCapienza();
+//		Mezzo mezzo06 = new Mezzo("KJ-378-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 23);
+//		mezzo06.setCapienza();
+//		Mezzo mezzo07 = new Mezzo("JK-098-IO", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 13);
+//		mezzo07.setCapienza();
+//		Mezzo mezzo08 = new Mezzo("JK-766-JK", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 4);
+//		mezzo08.setCapienza();
+//		Mezzo mezzo09 = new Mezzo("GT-432-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 45);
+//		mezzo09.setCapienza();
+//		Mezzo mezzo10 = new Mezzo("YU-566-UI", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 56);
+//		mezzo10.setCapienza();
+//		Mezzo mezzo11 = new Mezzo("IU-879-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 32);
+		// mezzo11.setCapienza();
 
 //		mezzodao.save(mezzo01);
 //		mezzodao.save(mezzo02);
@@ -153,21 +148,21 @@ public class GestioneAziendaTrasporto {
 
 	}
 
-	public static void timbrato(UUID idBiglietto, String targa, TicketDao ticketDao, MezzoDao mezzodao,
-			EntityManager em, Tessera tessera) {
-		EntityTransaction t = em.getTransaction();
-		try {
-			t.begin();
-		Biglietto bigliettoTimbrato = (Biglietto) ticketDao.getById(idBiglietto);
-		Mezzo mezzoCheTimbra = mezzodao.getById(targa);
-		bigliettoTimbrato.setTimbrato(true);
-		bigliettoTimbrato.setMezzo(mezzoCheTimbra);
-		t.commit();
-		System.err.println(bigliettoTimbrato + "è stato obliterato il giorno "
-				+ LocalDate.now() + "sul mezzo " + mezzoCheTimbra);
-	} catch (Exception ex) {
-		ex.printStackTrace();
-	}
-
-	}
+//	public static void timbrato(UUID idBiglietto, String targa, TicketDao ticketDao, MezzoDao mezzodao,
+//			EntityManager em, Tessera tessera) {
+//		EntityTransaction t = em.getTransaction();
+//		try {
+//			t.begin();
+//		Biglietto bigliettoTimbrato = (Biglietto) ticketDao.getById(idBiglietto);
+//		// Mezzo mezzoCheTimbra = mezzodao.getById(targa);
+//		bigliettoTimbrato.setTimbrato(true);
+//		// bigliettoTimbrato.setMezzo(mezzoCheTimbra);
+//		t.commit();
+//		System.err.println(bigliettoTimbrato + "è stato obliterato il giorno "
+//				+ LocalDate.now() + "sul mezzo " + mezzoCheTimbra);
+//	} catch (Exception ex) {
+//		ex.printStackTrace();
+//	}
+//
+//	}
 }

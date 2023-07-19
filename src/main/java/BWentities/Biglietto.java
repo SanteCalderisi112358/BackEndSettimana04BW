@@ -1,7 +1,6 @@
 package BWentities;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +13,9 @@ import lombok.Setter;
 public class Biglietto extends Ticket {
 
 	private boolean timbrato;
-	@ManyToOne
+	// @ManyToOne
 //	@JoinColumn(name = "mezzo_id")
-	private Mezzo mezzo;
+	// private Mezzo mezzo;
 
 //	public Biglietto(LocalDate localDate, Tessera tessera) {
 //		super(localDate, tessera);

@@ -27,8 +27,7 @@
 <dependency>
     <groupId>ch.qos.logback</groupId>
     <artifactId>logback-classic</artifactId>
-    <version>1.4.8</version>
-    
+    <version>1.4.8</version>   
 </dependency>
 <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 <dependency>
@@ -47,7 +46,6 @@
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
     <version>1.18.28</version>
-    <scope>provided</scope>
 </dependency>
 <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
 <dependency>
@@ -55,6 +53,5 @@
     <artifactId>javafaker</artifactId>
     <version>1.0.2</version>
 </dependency>
-
   </dependencies>
 </project>
