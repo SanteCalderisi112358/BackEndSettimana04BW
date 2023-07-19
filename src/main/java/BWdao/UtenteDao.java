@@ -53,7 +53,8 @@ public class UtenteDao {
 
 	public void refresh(UUID id) {
 		Utente found = em.find(Utente.class, id);
-		found.setId(id);
+		found.setCodiceFiscale(id);
+		;
 
 		System.out.println("PRE REFRESH");
 		System.out.println(found);

@@ -1,10 +1,14 @@
 package BWentities;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import BWenum.StatoServizio;
+import lombok.NoArgsConstructor;
 
+@Entity
+@NoArgsConstructor
 public class DistributoreAutomatico extends PuntoEmissione {
 
 	@Enumerated(EnumType.STRING)

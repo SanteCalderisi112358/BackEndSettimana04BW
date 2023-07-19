@@ -1,8 +1,10 @@
 package BWentities;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -13,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,8 +27,8 @@ public abstract class PuntoEmissione {
 	private UUID id;
 	private String indirizzo;
 
-	@OneToMany
-	private Set<Ticket> ticket;
+	@OneToMany(mappedBy = "puntoEmissione")
+	private Set<Ticket> ticket = new HashSet<Ticket>();
 
 	public PuntoEmissione(String indirizzo) {
 

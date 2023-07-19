@@ -26,8 +26,8 @@ public class MezzoDao {
 		log.info(mezzo + " è stata salvata correttamente");
 	}
 
-	public Mezzo getById(UUID id) {
-		Mezzo found = em.find(Mezzo.class, id);
+	public Mezzo getById(String targa) {
+		Mezzo found = em.find(Mezzo.class, targa);
 
 		if (found == null) {
 			log.info("Il mezzo è stato trovato");

@@ -1,9 +1,12 @@
 package BWentities;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import BWenum.StatoMezzo;
 import BWenum.TipoMezzo;
@@ -26,6 +29,9 @@ public class Mezzo {
 	private TipoMezzo tipoMezzo;
 	private int capienza;
 	private int corse;
+	
+	@OneToMany(mappedBy = "mezzo")
+	private Set<Biglietto> biglietti;
 
 //	@OneToMany
 //	private Set<Manutenzione> manutenzioni;

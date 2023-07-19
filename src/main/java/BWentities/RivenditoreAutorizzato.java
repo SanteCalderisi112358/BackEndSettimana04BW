@@ -1,5 +1,11 @@
 package BWentities;
 
+import javax.persistence.Entity;
+
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
 public class RivenditoreAutorizzato extends PuntoEmissione {
 
 	private String nome;

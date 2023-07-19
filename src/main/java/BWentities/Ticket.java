@@ -26,11 +26,14 @@ public abstract class Ticket {
 	protected LocalDate dataEmissione;
 	@ManyToOne
 	protected Tessera tessera;
+	@ManyToOne
+	protected PuntoEmissione puntoEmissione;
 
-	public Ticket(String dataEmissione, Tessera tessera) {
+	public Ticket(String dataEmissione, Tessera tessera, PuntoEmissione puntoEmissione) {
 
 		this.dataEmissione = LocalDate.parse(dataEmissione);
 		this.tessera = tessera;
+		this.puntoEmissione = puntoEmissione;
 	}
 
 	@Override

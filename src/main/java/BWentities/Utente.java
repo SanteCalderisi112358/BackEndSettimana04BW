@@ -19,7 +19,7 @@ public class Utente {
 
 	@Id
 	@GeneratedValue
-	private UUID id;
+	private UUID codiceFiscale;
 	private String nome;
 	private String cognome;
 	@OneToOne(mappedBy = "utente")
@@ -36,7 +36,7 @@ public class Utente {
 
 	@Override
 	public String toString() {
-		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + "]";
+		return "Utente [id=" + codiceFiscale + ", nome=" + nome + ", cognome=" + cognome + "]";
 	}
 
 }

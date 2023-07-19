@@ -2,15 +2,20 @@ package BW;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 import BWdao.MezzoDao;
+import BWdao.PuntoEmissioneDao;
 import BWdao.TesseraDao;
 import BWdao.TicketDao;
 import BWdao.UtenteDao;
+import BWentities.Biglietto;
 import BWentities.Mezzo;
+import BWentities.RivenditoreAutorizzato;
 import BWentities.Tessera;
 import BWentities.Utente;
 import BWenum.StatoMezzo;
@@ -28,6 +33,7 @@ public class GestioneAziendaTrasporto {
 		TesseraDao tesseraDao = new TesseraDao(em);
 		TicketDao ticketDao = new TicketDao(em);
 		MezzoDao mezzodao = new MezzoDao(em);
+		PuntoEmissioneDao puntoEmissioneDao = new PuntoEmissioneDao(em);
 
 
 		/* Creazione e salvataggio nuovi utenti nel DB */
@@ -37,9 +43,9 @@ public class GestioneAziendaTrasporto {
 		Utente andrea = new Utente("Andrea", "Loto");
 		Utente giulio = new Utente("Giulio", "Di Carlo");
 		Utente laura = new Utente("Laura", "Zazzera");
-		utenteDao.save(erika);
-		utenteDao.save(giulio);
-		utenteDao.save(andrea);
+//		utenteDao.save(erika);
+//		utenteDao.save(giulio);
+//		utenteDao.save(andrea);
 		utenteDao.save(laura);
 
 		/* Creazione e salvataggio nuove tessere nel DB */
@@ -50,9 +56,9 @@ public class GestioneAziendaTrasporto {
 		Tessera tesseraErika = new Tessera(LocalDate.of(2022, 5, 23), erika);
 		Tessera tesseraGiulio = new Tessera(LocalDate.of(2020, 12, 7), giulio);
 		Tessera tesseraLaura = new Tessera(LocalDate.of(2023, 8, 4), laura);
-		tesseraDao.save(tesseraAndrea);
-		tesseraDao.save(tesseraErika);
-		tesseraDao.save(tesseraGiulio);
+//		tesseraDao.save(tesseraAndrea);
+//		tesseraDao.save(tesseraErika);
+//		tesseraDao.save(tesseraGiulio);
 		tesseraDao.save(tesseraLaura);
 
 		/* Creazione e salvataggio 10 mezzi */
@@ -92,6 +98,18 @@ public class GestioneAziendaTrasporto {
 //		mezzodao.save(mezzo11);
 
 
+		/* Creazione rivenditore autorizzato */
+
+		RivenditoreAutorizzato rivenditoreAutorizzato01 = new RivenditoreAutorizzato(
+				"Via Sandro PErtini, 26 - Vieste(FG)", "Tabaccheria Ciao Mondo");
+
+		// puntoEmissioneDao.save(rivenditoreAutorizzato01);
+		/* Creazione Biglietti */
+
+		Biglietto biglietto01 = new Biglietto("2023-07-19", tesseraLaura, rivenditoreAutorizzato01);
+		// ticketDao.save(biglietto01);
+		timbrato(UUID.fromString("5103910d-f7d6-4cc5-93f7-6d8b1f8ee9fa"), "AA-432-WE", ticketDao, mezzodao, em,
+				tesseraLaura);
 
 		try {
 			Scanner input = new Scanner(System.in);
@@ -135,5 +153,21 @@ public class GestioneAziendaTrasporto {
 
 	}
 
+	public static void timbrato(UUID idBiglietto, String targa, TicketDao ticketDao, MezzoDao mezzodao,
+			EntityManager em, Tessera tessera) {
+		EntityTransaction t = em.getTransaction();
+		try {
+			t.begin();
+		Biglietto bigliettoTimbrato = (Biglietto) ticketDao.getById(idBiglietto);
+		Mezzo mezzoCheTimbra = mezzodao.getById(targa);
+		bigliettoTimbrato.setTimbrato(true);
+		bigliettoTimbrato.setMezzo(mezzoCheTimbra);
+		t.commit();
+		System.err.println(bigliettoTimbrato + "è stato obliterato il giorno "
+				+ LocalDate.now() + "sul mezzo " + mezzoCheTimbra);
+	} catch (Exception ex) {
+		ex.printStackTrace();
+	}
 
+	}
 }

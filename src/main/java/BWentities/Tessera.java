@@ -1,6 +1,7 @@
 package BWentities;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class Tessera {
 	private LocalDate dataEmissioneTessera;
 
 	@OneToMany(mappedBy = "tessera")
-	private Set<Ticket> ticket;
+	private Set<Ticket> ticket = new HashSet<Ticket>();
 	private LocalDate dateScadenzaTessera;
 
 	@OneToOne

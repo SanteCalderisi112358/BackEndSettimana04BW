@@ -1,7 +1,6 @@
 package BWentities;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.Getter;
@@ -16,18 +15,47 @@ public class Biglietto extends Ticket {
 
 	private boolean timbrato;
 	@ManyToOne
-	@JoinColumn(name = "mezzo_id")
+//	@JoinColumn(name = "mezzo_id")
 	private Mezzo mezzo;
 
-	public Biglietto(String dataEmissione, Tessera tessera, boolean timbrato, Mezzo mezzo) {
-		super(dataEmissione, tessera);
-		this.timbrato = timbrato;
-		this.mezzo = mezzo;
+//	public Biglietto(LocalDate localDate, Tessera tessera) {
+//		super(localDate, tessera);
+//		this.timbrato = false;
+//
+//	}
+//	public Biglietto(String dataEmissione, Tessera tessera) {
+//		super(dataEmissione, tessera, puntoEmissione);
+//		this.timbrato = false;
+//
+//	}
+
+	public Biglietto(String dataEmissione, Tessera tessera, PuntoEmissione puntoEmissione) {
+		super(dataEmissione, tessera, puntoEmissione);
+		this.timbrato = false;
+
 	}
 
 	@Override
 	public String toString() {
-		return "Biglietto [timbrato=" + timbrato + "]";
+		return "Biglietto [id=" + id + ", data Emissione=" + dataEmissione + ", tessera=" + tessera
+				+ ", punto Emissione=" + puntoEmissione + "]";
 	}
+
+//	public void timbrato(UUID idBiglietto, String targa) {
+//		EntityManagerFactory emf = JpaUtil.getEntityManagerFactory();
+//		EntityManager em = null;
+//		EntityTransaction t = em.getTransaction();
+//		t.begin();
+//		// @SuppressWarnings("null")
+//		Biglietto biglietto = em.find(Biglietto.class, idBiglietto);
+//		biglietto.setTimbrato(true);
+//		biglietto.getMezzo().setTarga(targa);
+//
+//		t.commit();
+//	}
+
+
+
+
 
 }
