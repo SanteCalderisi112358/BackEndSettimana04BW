@@ -21,15 +21,14 @@ public class Abbonamento extends Ticket {
 
 	private LocalDate dataScadenza;
 
-	public Abbonamento(LocalDate dataEmissione, PuntoEmissione puntoEmissione, TipoAbbonamento tipoAbbonamento) {
-		super(dataEmissione, puntoEmissione);
+	public Abbonamento(LocalDate dataEmissione, TipoAbbonamento tipoAbbonamento) {
 		this.tipoAbbonamento = tipoAbbonamento;
 	}
 
 	@Override
 	public String toString() {
 		return "Abbonamento [tipoAbbonamento=" + tipoAbbonamento + ", dataScadenza=" + dataScadenza + ", id=" + id
-				+ ", dataEmissione=" + dataEmissione + ", puntoEmissione=" + puntoEmissione + "]";
+				+ ", dataEmissione=" + dataEmissione  + "]";
 	}
 
 

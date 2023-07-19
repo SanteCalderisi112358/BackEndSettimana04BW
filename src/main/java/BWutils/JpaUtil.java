@@ -8,7 +8,7 @@ public class JpaUtil {
 
 	static {
 		try {
-			emf = Persistence.createEntityManagerFactory("w15progetto");
+			emf = Persistence.createEntityManagerFactory("BackEndSettimana04BW");
 		} catch (Throwable ex) {
 			System.err.println("Initial EntityManagerFactory creation failed." + ex);
 			throw new ExceptionInInitializerError(ex);

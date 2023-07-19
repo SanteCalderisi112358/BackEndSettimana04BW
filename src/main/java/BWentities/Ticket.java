@@ -23,18 +23,16 @@ public abstract class Ticket {
 	@GeneratedValue
 	protected UUID id;
 	protected LocalDate dataEmissione;
-	// @ManyToOne
-	protected PuntoEmissione puntoEmissione;
 
-	public Ticket(LocalDate dataEmissione, PuntoEmissione puntoEmissione) {
+
+	public Ticket(LocalDate dataEmissione) {
 
 		this.dataEmissione = dataEmissione;
-		this.puntoEmissione = puntoEmissione;
 	}
 
 	@Override
 	public String toString() {
-		return "Ticket [id=" + id + ", dataEmissione=" + dataEmissione + ", puntoEmissione=" + puntoEmissione + "]";
+		return "Ticket [id=" + id + ", dataEmissione=" + dataEmissione +  "]";
 	}
 
 }
