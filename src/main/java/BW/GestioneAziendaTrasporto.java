@@ -2,9 +2,15 @@ package BW;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+
+import com.github.javafaker.Faker;
 
 import BWdao.ManutenzioneDao;
 import BWdao.MezziDao;
@@ -14,16 +20,17 @@ import BWdao.TesseraDao;
 import BWdao.TicketDao;
 import BWdao.TrattaDao;
 import BWdao.UtenteDao;
+import BWentities.Abbonamento;
 import BWentities.Biglietto;
+import BWentities.DistributoreAutomatico;
+import BWentities.PuntoEmissione;
 import BWentities.RivenditoreAutorizzato;
 import BWentities.Tessera;
 import BWentities.Utente;
-import BWenum.StatoMezzo;
-import BWenum.TipoMezzo;
+import BWenum.StatoServizio;
+import BWenum.TipoAbbonamento;
 import BWutils.JpaUtil;
-import Mezzi.Manutenzione;
 import Mezzi.Mezzi;
-import Mezzi.StoricoTratte;
 import Mezzi.Tratta;
 
 
@@ -31,7 +38,7 @@ public class GestioneAziendaTrasporto {
 	private static EntityManagerFactory emf = JpaUtil.getEntityManagerFactory();
 
 	public static void main(String[] args) {
-
+		Faker f = new Faker(Locale.ITALIAN);
 		EntityManager em = emf.createEntityManager();
 
 		// IstanziamentoDao
@@ -46,13 +53,43 @@ public class GestioneAziendaTrasporto {
 
 		/* Creazione tratta */
 		Tratta tratta = new Tratta("Milano", "Roma", 500, 1000);
-		trattaDao.save(tratta);
+		// trattaDao.save(tratta);
 
 		/* Creazione rivenditore autorizzato */
 		RivenditoreAutorizzato rivenditoreAutorizzato01 = new RivenditoreAutorizzato(
-				"Via Sandro PErtini, 26 - Vieste(FG)", "Tabaccheria Ciao Mondo");
+				"Via Sandro Pertini, 26", "Tabaccheria 'Ciao Mondo'");
+		RivenditoreAutorizzato rivenditoreAutorizzato02 = new RivenditoreAutorizzato("Via del Corso, 10",
+				"Tabaccheria 'Del Corso'");
+		RivenditoreAutorizzato rivenditoreAutorizzato03 = new RivenditoreAutorizzato("Via Veneto, 56",
+				"Bar 'Grappino'");
+		RivenditoreAutorizzato rivenditoreAutorizzato04 = new RivenditoreAutorizzato("Corso Epicode, 4",
+				"Centro Info Turistiche");
+		RivenditoreAutorizzato rivenditoreAutorizzato05 = new RivenditoreAutorizzato(f.address().fullAddress(),
+				"Tabaccheria Ciao Mondo");
 
-		puntoEmissioneDao.save(rivenditoreAutorizzato01);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato01);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato02);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato03);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato04);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato05);
+
+		/* Creazione distributori automatici */
+
+		DistributoreAutomatico distributore01 = new DistributoreAutomatico(f.address().fullAddress(),
+				StatoServizio.ATTIVO);
+		DistributoreAutomatico distributore02 = new DistributoreAutomatico(f.address().fullAddress(),
+				StatoServizio.FUORI_SERVIZIO);
+		DistributoreAutomatico distributore03 = new DistributoreAutomatico(f.address().fullAddress(),
+				StatoServizio.FUORI_SERVIZIO);
+		DistributoreAutomatico distributore04 = new DistributoreAutomatico(f.address().fullAddress(),
+				StatoServizio.ATTIVO);
+		DistributoreAutomatico distributore05 = new DistributoreAutomatico(f.address().fullAddress(),
+				StatoServizio.ATTIVO);
+//		puntoEmissioneDao.save(distributore01);
+//		puntoEmissioneDao.save(distributore02);
+//		puntoEmissioneDao.save(distributore03);
+//		puntoEmissioneDao.save(distributore04);
+//		puntoEmissioneDao.save(distributore05);
 
 		/* Creazione e salvataggio nuovi utenti nel DB */
 		Utente sante = new Utente("Sante", "Calderisi");
@@ -60,11 +97,11 @@ public class GestioneAziendaTrasporto {
 		Utente andrea = new Utente("Andrea", "Loto");
 		Utente giulio = new Utente("Giulio", "Di Carlo");
 		Utente laura = new Utente("Laura", "Zazzera");
-		utenteDao.save(erika);
-		utenteDao.save(giulio);
-		utenteDao.save(andrea);
-		utenteDao.save(laura);
-		utenteDao.save(sante);
+//		utenteDao.save(erika);
+//		utenteDao.save(giulio);
+//		utenteDao.save(andrea);
+//		utenteDao.save(laura);
+//		utenteDao.save(sante);
 
 		/* Creazione tessere */
 		Tessera tesseraSante = new Tessera(LocalDate.of(2023, 6, 12), sante);
@@ -72,119 +109,389 @@ public class GestioneAziendaTrasporto {
 		Tessera tesseraErika = new Tessera(LocalDate.of(2022, 5, 23), erika);
 		Tessera tesseraGiulio = new Tessera(LocalDate.of(2020, 12, 7), giulio);
 		Tessera tesseraLaura = new Tessera(LocalDate.of(2023, 8, 4), laura);
-		tesseraDao.save(tesseraAndrea);
-		tesseraDao.save(tesseraErika);
-		tesseraDao.save(tesseraGiulio);
-		tesseraDao.save(tesseraSante);
-		tesseraDao.save(tesseraLaura);
+//		tesseraDao.save(tesseraAndrea);
+//		tesseraDao.save(tesseraErika);
+//		tesseraDao.save(tesseraGiulio);
+//		tesseraDao.save(tesseraSante);
+//		tesseraDao.save(tesseraLaura);
 
 		/* Creazione Biglietti */
 		Biglietto biglietto01 = new Biglietto(LocalDate.of(2023, 4, 2), tesseraLaura, rivenditoreAutorizzato01);
-		ticketDao.save(biglietto01);
+		// ticketDao.save(biglietto01);
 
 		/* Creazione mezzo */
-		Mezzi mezzo = new Mezzi("AS-898-DF", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM, 43);
-		mezzo.setTratta(tratta);
-		mezzoDao.save(mezzo);
+//		Mezzi mezzo = new Mezzi("AS-898-DF", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM, 43);
+//		mezzo.setTratta(tratta);
+//		mezzoDao.save(mezzo);
 
 		/* Creazione manutenzione */
-		Manutenzione manutenzione = new Manutenzione("Cambio olio", LocalDate.now(), LocalDate.now().plusDays(3), 3,
-				mezzo);
-		manutenzioneDao.save(manutenzione);
+//		Manutenzione manutenzione = new Manutenzione("Cambio olio", LocalDate.now(), LocalDate.now().plusDays(3), 3,
+//				mezzo);
+		// manutenzioneDao.save(manutenzione);
 
 		/* Creazione storicoTratte */
-		StoricoTratte storicoTratte = new StoricoTratte(10.5, mezzo);
-		StoricoTratte storicoTratte2 = new StoricoTratte(15.5, mezzo);
-		StoricoTratte storicoTratte3 = new StoricoTratte(12, mezzo);
-		StoricoTratte storicoTratte4 = new StoricoTratte(12.5, mezzo);
-		StoricoTratte storicoTratte5 = new StoricoTratte(9.5, mezzo);
-		storicoTratteDao.save(storicoTratte);
-		storicoTratteDao.save(storicoTratte2);
-		storicoTratteDao.save(storicoTratte3);
-		storicoTratteDao.save(storicoTratte4);
-		storicoTratteDao.save(storicoTratte5);
+//		StoricoTratte storicoTratte = new StoricoTratte(10.5, mezzo);
+//		StoricoTratte storicoTratte2 = new StoricoTratte(15.5, mezzo);
+//		StoricoTratte storicoTratte3 = new StoricoTratte(12, mezzo);
+//		StoricoTratte storicoTratte4 = new StoricoTratte(12.5, mezzo);
+//		StoricoTratte storicoTratte5 = new StoricoTratte(9.5, mezzo);
+//		storicoTratteDao.save(storicoTratte);
+//		storicoTratteDao.save(storicoTratte2);
+//		storicoTratteDao.save(storicoTratte3);
+//		storicoTratteDao.save(storicoTratte4);
+//		storicoTratteDao.save(storicoTratte5);
 
 
 
 
 		/* PROVE VARIE */
 
-		mezzo.getManutenzioni().add(manutenzione);
-		mezzoDao.refresh(mezzo);
+		// mezzo.getManutenzioni().add(manutenzione);
+		// mezzoDao.refresh(mezzo);
 
 		List<Mezzi> mezziPerTratta = mezzoDao.trovaPerTratta(tratta.getId());
 		System.out.println("Mezzi per la tratta " + tratta.getId() + ": " + mezziPerTratta.size());
 
-		List<Manutenzione> manutenzioniPerMezzo = manutenzioneDao.trovaPerMezzo(mezzo.getTarga());
-		System.out.println("Manutenzioni per il mezzo " + mezzo.getTarga() + ": " + manutenzioniPerMezzo.size());
-
-		System.out.println("Tempo medio della tratta per il mezzo " + mezzo.getTarga() + ": "
-				+ mezzo.getMediaTempiPercorrenza() + ", ha percorso " + mezzo.getStoricoTratte().size()
-				+ " volte la tratta, impiegandoci al massimo " + mezzo.getMaxTempoPercorrenza() + " minuti, e minimo "
-				+ mezzo.getMinTempoPercorrenza() + " minuti");
+		// List<Manutenzione> manutenzioniPerMezzo =
+		// manutenzioneDao.trovaPerMezzo(mezzo.getTarga());
+//		System.out.println("Manutenzioni per il mezzo " + mezzo.getTarga() + ": " + manutenzioniPerMezzo.size());
+//
+//		System.out.println("Tempo medio della tratta per il mezzo " + mezzo.getTarga() + ": "
+//				+ mezzo.getMediaTempiPercorrenza() + ", ha percorso " + mezzo.getStoricoTratte().size()
+//				+ " volte la tratta, impiegandoci al massimo " + mezzo.getMaxTempoPercorrenza() + " minuti, e minimo "
+//				+ mezzo.getMinTempoPercorrenza() + " minuti");
 
 
 
 //		timbrato(UUID.fromString("5103910d-f7d6-4cc5-93f7-6d8b1f8ee9fa"), "AA-432-WE", ticketDao, mezzoDao, em,
 //				tesseraLaura);
 
-//		try {
-//			Scanner input = new Scanner(System.in);
-//			int scelta = -100;
-//			do {
-//				System.out.println("Benvenuto");
-//				System.out.println("Digita:");
-//				System.out.println("1 - Se vuoi diventare un nostro nuovo tesserato");
-//				System.out.println("0 - Se vuoi uscire dal nostro sistema");
-//
-//				try {
-//					scelta = Integer.parseInt(input.nextLine());
-//				} catch (NumberFormatException ex) {
-//					System.out.println("Inserisci un numero valido.");
-//					continue;
-//				}
-//
-//				switch (scelta) {
-//				case 1:
-//					System.out.println("Inserisci il tuo nome");
-//					String nome = input.nextLine();
-//					System.out.println("Inserisci il tuo cognome");
-//					String cognome = input.nextLine();
-//					Utente nuovoUtente = new Utente(nome, cognome);
-//					utenteDao.save(nuovoUtente);
-//					Tessera tesseraNuovoUtente = new Tessera(LocalDate.now(), nuovoUtente);
-//					tesseraDao.save(tesseraNuovoUtente);
-//					break;
-//				case 0:
-//					System.out.println("Arrivederci!");
-//					break;
-//				default:
-//					System.out.println("Scelta non valida. Riprova.");
-//				}
-//
-//			} while (scelta != 0);
-//			input.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+		try {
+		    Scanner input = new Scanner(System.in);
+		    int scelta = -100;
 
-//	public static void timbrato(UUID idBiglietto, String targa, TicketDao ticketDao, MezzoDao mezzodao,
-//			EntityManager em, Tessera tessera) {
-//		EntityTransaction t = em.getTransaction();
-//		try {
-//			t.begin();
-//		Biglietto bigliettoTimbrato = (Biglietto) ticketDao.getById(idBiglietto);
-//		// Mezzo mezzoCheTimbra = mezzodao.getById(targa);
-//		bigliettoTimbrato.setTimbrato(true);
-//		// bigliettoTimbrato.setMezzo(mezzoCheTimbra);
-//		t.commit();
-//		System.err.println(bigliettoTimbrato + "è stato obliterato il giorno "
-//				+ LocalDate.now() + "sul mezzo " + mezzoCheTimbra);
-//	} catch (Exception ex) {
-//		ex.printStackTrace();
-//	}
-//
+		    while (scelta != 0) {
+		        System.out.println("Benvenuto");
+		        System.out.println("Digita:");
+		        System.out.println("1. Lato Utenti");
+		        System.out.println("2. Lato back-Office");
+		        System.out.println("0. Esci");
+
+		        int sceltaLato;
+		        try {
+		            sceltaLato = Integer.parseInt(input.nextLine());
+		        } catch (NumberFormatException ex) {
+		            System.out.println("Inserire un numero valido!");
+		            continue;
+		        }
+
+		        switch (sceltaLato) {
+		            case 1:
+		                do {
+		                    System.out.println("Digita:");
+		                    System.out.println("1. Creazione nuova tessera");
+		                    System.out.println("2. Eliminazione tessera");
+		                    System.out.println("3. Controllo scadenza tessera");
+		                    System.out.println("4. Acquista Ticket");//esce la scelta tra Biglietto/Abbonamento ->Lista puntiEmissione ->
+		                    System.out.println("0. Torna indietro");
+
+		                    try {
+		                        sceltaLato = Integer.parseInt(input.nextLine());
+		                    } catch (NumberFormatException ex) {
+		                        System.out.println("Inserire un numero valido!");
+		                        continue;
+		                    }
+
+		                    switch (sceltaLato) {
+		                        case 1:
+
+									System.out.println("Inserire nome del nuovo utente");
+									String nome = input.nextLine();
+									System.out.println("Inserire cognome del nuovo utente");
+									String cognome = input.nextLine();
+									nuovaTessera(nome, cognome, utenteDao, tesseraDao);
+									break;
+		                        case 2:
+
+									System.out.println("Inserire il numero della tessera da eliminare");
+									String tesseraDaEliminare = input.nextLine();
+									eliminaTessera(tesseraDaEliminare, utenteDao, tesseraDao);
+									break;
+
+		                        case 3:
+
+									System.out.println("Inserisci il tuo numero tessera");
+									String numeroTessera = input.nextLine();
+									controlloScadenza(numeroTessera, utenteDao, tesseraDao);
+		                            break;
+		                        case 4:
+									System.out.println("Inserisci il tuo numero di tessera");
+									String numeroTesseraPerTicket = input.nextLine();
+									Tessera tesseraPerTicket = tesseraDao
+											.getById(UUID.fromString(numeroTesseraPerTicket));
+									if (tesseraPerTicket != null) {
+										System.out.println(
+												"Scelgi il punto di emissione dove vuoi acquistare il tuo Ticket");
+										List<PuntoEmissione> puntiEmissione = puntoEmissioneDao.trovaPuntiEmissione();
+										for (int i = 0; i < puntiEmissione.size(); i++) {
+											PuntoEmissione punto = puntiEmissione.get(i);
+											System.out.println((i + 1) + ". " + punto.getIndirizzo());
+										}
+										System.out.println("0. Torna indietro");
+										int sceltaPuntoEmissione = Integer.parseInt(input.nextLine());
+										PuntoEmissione puntoEmissioneScelto = null;
+
+										switch (sceltaPuntoEmissione) {
+										case 1:
+
+											puntoEmissioneScelto = puntiEmissione.get(0);
+
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(0));
+											break;
+										case 2:
+											puntoEmissioneScelto = puntiEmissione.get(1);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(1));
+
+											break;
+										case 3:
+											puntoEmissioneScelto = puntiEmissione.get(2);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(2));
+
+											break;
+										case 4:
+											puntoEmissioneScelto = puntiEmissione.get(3);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(3));
+
+											break;
+										case 5:
+											puntoEmissioneScelto = puntiEmissione.get(4);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(4));
+
+											break;
+										case 6:
+											puntoEmissioneScelto = puntiEmissione.get(5);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(5));
+
+											break;
+										case 7:
+											puntoEmissioneScelto = puntiEmissione.get(6);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(6));
+
+											break;
+										case 8:
+											puntoEmissioneScelto = puntiEmissione.get(7);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(7));
+
+											break;
+										case 9:
+											puntoEmissioneScelto = puntiEmissione.get(8);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(8));
+
+											break;
+										case 10:
+											puntoEmissioneScelto = puntiEmissione.get(9);
+											System.out.println(
+													"Hai scelto il Punto di Emissione in" + puntiEmissione.get(9));
+
+											break;
+										case 0:
+											System.out.println("Arrivederci");
+										default:
+											System.out.println("Scelta non valida");
+										}
+
+										System.out.println("Digita:");
+										System.out.println("1. Se vuoi acquistare un nuovo Abbonamento");
+										System.out.println("2. Se vuoi acquistare un nuovo Biglietto");
+										System.out.println("0. Torna indietro");
+										int sceltaTicket = Integer.parseInt(input.nextLine());
+										switch (sceltaTicket) {
+										case 1:
+											Abbonamento nuovoAbbonamento = new Abbonamento();
+											nuovoAbbonamento.setPuntoEmissione(puntoEmissioneScelto);
+											nuovoAbbonamento.setDataEmissione(LocalDate.now());
+											nuovoAbbonamento.setTessera(tesseraPerTicket);
+											System.out.println("Scegli il tipo di abbonamento:");
+											System.out.println("1. Settimanale");
+											System.out.println("2. Mensile");
+											System.out.println("0. Torna indietro");
+											int sceltaAbbonamento = Integer.parseInt(input.nextLine());
+											switch (sceltaAbbonamento) {
+											case 1:
+												nuovoAbbonamento.setTipoAbbonamento(TipoAbbonamento.SETTIMANALE);
+												System.out.println("Hai scelto un abbonamento settimanale");
+												break;
+											case 2:
+												nuovoAbbonamento.setTipoAbbonamento(TipoAbbonamento.MENSILE);
+												System.out.println("Hai scelto un abbonamento mensile");
+												break;
+											case 0:
+												System.out.println("Arrivederci");
+												break;
+											default:
+												System.out.println("Hai scelto un valore non valido");
+											}
+											nuovoAbbonamento.setScadenza();
+											ticketDao.save(nuovoAbbonamento);
+											System.err.println(
+													"Il tuo abbonamento è:\n" + nuovoAbbonamento + ", acquistato in "
+															+ puntoEmissioneScelto + " il giorno " + LocalDate.now());
+
+										case 2:
+											Biglietto nuovoBiglietto = new Biglietto();
+											nuovoBiglietto.setDataEmissione(LocalDate.now());
+											nuovoBiglietto.setTessera(tesseraPerTicket);
+											nuovoBiglietto.setPuntoEmissione(puntoEmissioneScelto);
+											ticketDao.save(nuovoBiglietto);
+											System.err.println("Il tuo biglietto è:\n" + nuovoBiglietto);
+											System.out.println("**********");
+										default:
+
+										}
+
+									} else {
+										System.out.println("Il tuo numero tessera non esiste");
+									}
+
+
+		                            break;
+		                    }
+
+		                } while (sceltaLato != 0);
+
+		                break;
+		            case 2:
+		                System.out.println("1. Elenco mezzi");
+		                System.out.println("2. Statistiche mezzo");
+		                System.out.println("3. Cancellazione utente");
+		                System.out.println("4. Manutenzioni per mezzo");
+		                System.out.println("5. Mandare un mezzo in manutenzione");
+
+		                try {
+		                    scelta = Integer.parseInt(input.nextLine());
+		                } catch (NumberFormatException ex) {
+		                    System.out.println("Inserire un numero valido!");
+		                    continue;
+		                }
+
+		                switch (scelta) {
+		                    case 1:
+		                        System.out.println("Aggiungi metodo 'Elenco mezzi'");
+		                        break;
+		                    case 2:
+		                        System.out.println("Aggiungi metodo 'Statistiche mezzo'");
+		                        break;
+		                    case 3:
+		                        System.out.println("Aggiungi metodo 'Cancellazione utente'");
+		                        break;
+		                    case 4:
+		                        System.out.println("Aggiungi metodo 'Manutenzioni per mezzo'");
+		                        break;
+		                    case 5:
+		                        System.out.println("Aggiungi metodo 'Mandare un mezzo in manutenzione'");
+		                        break;
+		                    default:
+		                        System.out.println("Scelta non valida. Riprova.");
+		                        break;
+		                }
+		                break;
+		            case 0:
+		                System.out.println("Arrivederci");
+		                break;
+		            default:
+		                System.out.println("Scelta non valida. Riprova.");
+		                break;
+		        }
+		    }
+
+		    input.close();
+		} catch (Exception e) {
+//		      e.printStackTrace();
+		    System.out.println("Si è verificato un errore: " + e.getMessage());
+		}
+
+
+	}
+
+	public static void timbrato(UUID idBiglietto, String targa, TicketDao ticketDao, MezziDao mezzodao,
+			EntityManager em, Tessera tessera) {
+		EntityTransaction t = em.getTransaction();
+		try {
+			t.begin();
+			Biglietto bigliettoTimbrato = (Biglietto) ticketDao.getById(idBiglietto);
+			Mezzi mezzoCheTimbra = mezzodao.getById(targa);
+			bigliettoTimbrato.setTimbrato(true);
+			bigliettoTimbrato.setMezzo(mezzoCheTimbra);
+			t.commit();
+			System.err.println(bigliettoTimbrato + "è stato obliterato il giorno " + LocalDate.now() + "sul mezzo "
+					+ mezzoCheTimbra);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+	public static void nuovaTessera(String nome, String cognome, UtenteDao uD, TesseraDao tD) {
+		Utente nuovoUtente = new Utente(nome, cognome);
+		uD.save(nuovoUtente);
+		Tessera nuovaTessera = new Tessera(LocalDate.now(), nuovoUtente);
+		tD.save(nuovaTessera);
+		System.err.println("L'utente " + nuovoUtente.getNome() + " " + nuovoUtente.getCognome()
+				+ " è stato salvato nel DataBase. All'utente è stata assegnata una tessera con codice:\n"
+				+ nuovaTessera.getNumeroTessera());
+	}
+
+	public static void eliminaTessera(String tessera, UtenteDao uD, TesseraDao tD) {
+
+		Tessera tesseraTrovata = tD.getById(UUID.fromString(tessera));
+		if (tesseraTrovata != null) {
+
+			Utente utenteTrovato = tesseraTrovata.getUtente();
+			tD.delete(UUID.fromString(tessera));
+
+			uD.delete(utenteTrovato.getCodiceFiscale());
+
+			System.err.println("L'utente " + utenteTrovato.getNome() + " " + utenteTrovato.getCognome()
+					+ " è stato eliminato dal Database insieme alla sua tessera con codice:\n"
+					+ tesseraTrovata.getNumeroTessera());
+		} else {
+			System.err.println("Il codice inserito non è associato a nessuna tessera");
+		}
+	}
+
+	public static void controlloScadenza(String numeroTessera, UtenteDao utenteDao, TesseraDao tesseraDao) {
+
+		/* DA IMPLEMENTARE TRY CATCH CHE MI RIPORTA INDIETRO */
+		Tessera tesseraDaControllare = tesseraDao.getById(UUID.fromString(numeroTessera));
+		if (tesseraDaControllare != null) {
+			try {
+				
+
+				Utente utenteDaControllare = tesseraDaControllare.getUtente();
+				boolean scaduta = tesseraDao.tesseraScaduta(UUID.fromString(numeroTessera));
+
+				if (scaduta) {
+					System.err.println(
+							"La tua tessera è scaduta! Rivolgiti ad uno dei nostri Punti di Emissione per rinnovarla");
+				} else {
+					System.err.println(
+							"Non preoccuparti " + utenteDaControllare.getNome() + ", la tua tessera è ancora valida");
+				}
+			} catch (Exception ex) {
+				System.out.println("Inserire un numero tessera del formato valido!");
+			}
+
+		}
+
+
 	}
 }

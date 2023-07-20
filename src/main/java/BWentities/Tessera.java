@@ -19,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+//@NamedQuery(name = "controlloScadenza", query = "SELECT t FROM Tessera t WHERE t.dateScadenzaTessera < :oggi")
 public class Tessera {
 
 	@Id

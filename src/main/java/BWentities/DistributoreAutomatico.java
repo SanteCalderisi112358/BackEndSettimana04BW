@@ -21,7 +21,8 @@ public class DistributoreAutomatico extends PuntoEmissione {
 
 	@Override
 	public String toString() {
-		return "DistributoreAutomatico [statoServizio=" + statoServizio + "]";
+		return "DistributoreAutomatico [Stato Servizio=" + statoServizio + ", indirizzo=" + getIndirizzo() + "]";
 	}
+
 
 }

@@ -1,5 +1,6 @@
 package BWdao;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -61,5 +62,16 @@ public class TesseraDao {
 		em.refresh(found);
 		System.out.println("POST REFRESH");
 		System.out.println(found);
+	}
+
+	public boolean tesseraScaduta(UUID id) {
+		Tessera found = em.find(Tessera.class, id);
+		LocalDate oggi = LocalDate.now();
+		if (found != null) {
+			return found.getDateScadenzaTessera().isBefore(oggi);
+		} else {
+			System.out.println("Il codice inserito non è associato a nessuna tessera");
+		}
+		return false;
 	}
 }

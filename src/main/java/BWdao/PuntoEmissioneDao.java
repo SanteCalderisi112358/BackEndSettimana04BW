@@ -1,9 +1,11 @@
 package BWdao;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,5 +63,11 @@ public class PuntoEmissioneDao {
 		em.refresh(found);
 		System.out.println("POST REFRESH");
 		System.out.println(found);
+	}
+
+	public List<PuntoEmissione> trovaPuntiEmissione() {
+		TypedQuery<PuntoEmissione> puntiDiEmissione = em.createQuery("SELECT p FROM PuntoEmissione p",
+				PuntoEmissione.class);
+		return puntiDiEmissione.getResultList();
 	}
 }
