@@ -21,19 +21,22 @@ public class Abbonamento extends Ticket {
 
 	private LocalDate dataScadenza;
 
-//	public Abbonamento(String dataEmissione, Tessera tessera, TipoAbbonamento tipoAbbonamento, LocalDate dataScadenza) {
-//		super(dataEmissione, tessera, puntoEmissione);
-//		this.tipoAbbonamento = tipoAbbonamento;
-//		this.dataScadenza = dataScadenza;
-//	}
 
-	public Abbonamento(String dataEmissione, Tessera tessera, PuntoEmissione puntoEmissione,
-			TipoAbbonamento tipoAbbonamento, LocalDate dataScadenza) {
+
+	public Abbonamento(LocalDate dataEmissione, Tessera tessera, PuntoEmissione puntoEmissione,
+			TipoAbbonamento tipoAbbonamento) {
 		super(dataEmissione, tessera, puntoEmissione);
 		this.tipoAbbonamento = tipoAbbonamento;
-		this.dataScadenza = dataScadenza;
+
 	}
 
+	public void setScadenza() {
+		if (this.tipoAbbonamento == TipoAbbonamento.MENSILE) {
+			this.dataScadenza = this.dataEmissione.plusMonths(1);
+		} else {
+			this.dataScadenza = this.dataEmissione.plusWeeks(1);
+	}
+	}
 	@Override
 	public String toString() {
 		return "Abbonamento [tipoAbbonamento=" + tipoAbbonamento + ", dataScadenza=" + dataScadenza + "]";

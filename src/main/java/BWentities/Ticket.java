@@ -29,9 +29,9 @@ public abstract class Ticket {
 	@ManyToOne
 	protected PuntoEmissione puntoEmissione;
 
-	public Ticket(String dataEmissione, Tessera tessera, PuntoEmissione puntoEmissione) {
+	public Ticket(LocalDate dataEmissione, Tessera tessera, PuntoEmissione puntoEmissione) {
 
-		this.dataEmissione = LocalDate.parse(dataEmissione);
+		this.dataEmissione = dataEmissione;
 		this.tessera = tessera;
 		this.puntoEmissione = puntoEmissione;
 	}
