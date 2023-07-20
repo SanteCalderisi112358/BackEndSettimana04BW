@@ -42,6 +42,9 @@ public class Tessera {
 
 	}
 
+	public void setDataScadenza() {
+		this.dateScadenzaTessera = LocalDate.now().plusYears(1);
+	}
 	@Override
 	public String toString() {
 		return "Numero Tessera=" + numeroTessera + ", Data di emissione=" + dataEmissioneTessera

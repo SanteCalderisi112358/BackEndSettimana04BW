@@ -28,13 +28,20 @@ public abstract class PuntoEmissione {
 	private String indirizzo;
 
 	@OneToMany(mappedBy = "puntoEmissione")
-	private Set<Ticket> ticket = new HashSet<Ticket>();
+	private Set<Ticket> ticketVenduti = new HashSet<Ticket>();
 
 	public PuntoEmissione(String indirizzo) {
 
 		this.indirizzo = indirizzo;
 	}
 
+	public void setAbbonamentoVenduto(Abbonamento abbonamentoVenduto) {
+		this.ticketVenduti.add(abbonamentoVenduto);
+	}
+
+	public void setBigliettoVenduto(Biglietto bigliettoVenduto) {
+		this.ticketVenduti.add(bigliettoVenduto);
+	}
 	@Override
 	public String toString() {
 		return "PuntoEmissione [id=" + id + ", indirizzo=" + indirizzo + "]";

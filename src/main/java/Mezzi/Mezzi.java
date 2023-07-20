@@ -60,7 +60,9 @@ public class Mezzi {
 		this.statoMezzo = statoMezzo;
 	}
 
-
+	public void setBigliettiVidiminati(Biglietto biglietto) {
+		this.biglietti.add(biglietto);
+	}
 	public void setCapienzaMezzo() {
 		if (this.tipoMezzo == TipoMezzo.AUTOBUS) {
 			this.capienza = 58;
@@ -113,5 +115,9 @@ public class Mezzi {
 		return min;
 	}
 
+	@Override
+	public String toString() {
+		return "Mezzo [targa=" + targa + ", tratta=" + tratta + "]";
+	}
 
 }
