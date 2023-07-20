@@ -89,40 +89,42 @@ public class GestioneAziendaTrasporto {
 
 		/* CREZIONE MEZZI E SALVATAGGIO */
 
-		Mezzi Mezzi01 = new Mezzi("AA-432-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 12);
-		Mezzi01.setCapienzaMezzo();
-		Mezzi Mezzi02 = new Mezzi("AB-321-GF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 23);
-		Mezzi02.setCapienzaMezzo();
-		Mezzi Mezzi03 = new Mezzi("ER-456-HG", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 34);
-		Mezzi03.setCapienzaMezzo();
-		Mezzi Mezzi04 = new Mezzi("NB-123-HG", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 65);
-		Mezzi04.setCapienzaMezzo();
-		Mezzi Mezzi05 = new Mezzi("NH-765-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 7);
-		Mezzi05.setCapienzaMezzo();
-		Mezzi Mezzi06 = new Mezzi("KJ-378-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 23);
-		Mezzi06.setCapienzaMezzo();
-		Mezzi Mezzi07 = new Mezzi("JK-098-IO", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 13);
-		Mezzi07.setCapienzaMezzo();
-		Mezzi Mezzi08 = new Mezzi("JK-766-JK", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 4);
-		Mezzi08.setCapienzaMezzo();
-		Mezzi Mezzi09 = new Mezzi("GT-432-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 45);
-		Mezzi09.setCapienzaMezzo();
-		Mezzi Mezzi10 = new Mezzi("YU-566-UI", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 56);
-		Mezzi10.setCapienzaMezzo();
-		Mezzi Mezzi11 = new Mezzi("IU-879-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 32);
-		Mezzi11.setCapienzaMezzo();
+		Mezzi mezzo01 = new Mezzi("AH-746-HS", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 5);
+		mezzo01.setCapienzaMezzo();
+		Mezzi mezzo02 = new Mezzi("AB-321-GF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 3);
+		mezzo02.setCapienzaMezzo();
+		Mezzi mezzo03 = new Mezzi("ER-456-HG", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 34);
+		mezzo03.setCapienzaMezzo();
+		Mezzi mezzo04 = new Mezzi("NB-123-HG", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 65);
+		mezzo04.setCapienzaMezzo();
+		Mezzi mezzo05 = new Mezzi("NH-765-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 7);
+		mezzo05.setCapienzaMezzo();
+		Mezzi mezzo06 = new Mezzi("KJ-378-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 23);
+		mezzo06.setCapienzaMezzo();
+		Mezzi mezzo07 = new Mezzi("JK-098-IO", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 13);
+		mezzo07.setCapienzaMezzo();
+		Mezzi mezzo08 = new Mezzi("JK-766-JK", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 4);
+		mezzo08.setCapienzaMezzo();
+		Mezzi mezzo09 = new Mezzi("GT-432-WE", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 45);
+		mezzo09.setCapienzaMezzo();
+		Mezzi mezzo10 = new Mezzi("YU-566-UI", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.AUTOBUS, 56);
+		mezzo10.setCapienzaMezzo();
+		Mezzi mezzo11 = new Mezzi("IU-879-DF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM, 32);
+		mezzo11.setCapienzaMezzo();
 
-		mezzidao.save(Mezzi01);
-		mezzidao.save(Mezzi02);
-		mezzidao.save(Mezzi03);
-		mezzidao.save(Mezzi04);
-		mezzidao.save(Mezzi05);
-		mezzidao.save(Mezzi06);
-		mezzidao.save(Mezzi07);
-		mezzidao.save(Mezzi08);
-		mezzidao.save(Mezzi09);
-		mezzidao.save(Mezzi10);
-		mezzidao.save(Mezzi11);
+
+
+		mezzidao.save(mezzo01);
+		mezzidao.save(mezzo02);
+		mezzidao.save(mezzo03);
+		mezzidao.save(mezzo04);
+		mezzidao.save(mezzo05);
+		mezzidao.save(mezzo06);
+		mezzidao.save(mezzo07);
+		mezzidao.save(mezzo08);
+		mezzidao.save(mezzo09);
+		mezzidao.save(mezzo10);
+		mezzidao.save(mezzo11);
 
 
 		/* CREAZIONE RIVENDITORI AUTORIZZATI E SALVATAGGIO */

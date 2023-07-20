@@ -60,6 +60,7 @@ public class Mezzi {
 		this.statoMezzo = statoMezzo;
 	}
 
+
 	public void setCapienzaMezzo() {
 		if (this.tipoMezzo == TipoMezzo.AUTOBUS) {
 			this.capienza = 58;
@@ -111,5 +112,6 @@ public class Mezzi {
 
 		return min;
 	}
+
 
 }
