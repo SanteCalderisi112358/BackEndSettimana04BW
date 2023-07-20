@@ -10,9 +10,7 @@ import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import BWutils.JpaUtil;
 import Mezzi.Mezzi;
-import Mezzi.Tratta;
 
 public class MezziDao {
 	private final EntityManager em;
@@ -55,20 +53,14 @@ public class MezziDao {
 	}
 
 	public void refresh(Mezzi mezzi) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-
-			em.refresh(mezzi);
-
-		} finally {
-			em.close();
-		}
+		mezzi = em.merge(mezzi);
+		em.refresh(mezzi);
 
 	}
 
-	public List<Mezzi> trovaPerTratta(Tratta tratta) {
-		TypedQuery<Mezzi> query = em.createQuery("SELECT m FROM Mezzi m WHERE m.tratta.id = :trattaId", Mezzi.class);
-		query.setParameter("trattaId", tratta);
+	public List<Mezzi> trovaPerTratta(UUID idTratta) {
+		TypedQuery<Mezzi> query = em.createQuery("SELECT m FROM Mezzi m WHERE m.tratta.id = :idTratta", Mezzi.class);
+		query.setParameter("idTratta", idTratta);
 		return query.getResultList();
 	}
 }

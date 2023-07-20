@@ -65,10 +65,10 @@ public class ManutenzioneDao {
 
 	}
 
-	public List<Manutenzione> trovaPerMezzo(UUID mezzoId) {
-		TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo.id = :mezzoId",
+	public List<Manutenzione> trovaPerMezzo(String targa) {
+		TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo.targa = :targa",
 				Manutenzione.class);
-		query.setParameter("mezzoId", mezzoId);
+		query.setParameter("targa", targa);
 		return query.getResultList();
 	}
 }
