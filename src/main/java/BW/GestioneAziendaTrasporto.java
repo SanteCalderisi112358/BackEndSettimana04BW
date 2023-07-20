@@ -30,10 +30,8 @@ import BWentities.Utente;
 import BWenum.StatoMezzo;
 import BWenum.StatoServizio;
 import BWenum.TipoAbbonamento;
-import BWenum.TipoMezzo;
 import BWutils.JpaUtil;
 import Mezzi.Mezzi;
-import Mezzi.Tratta;
 
 
 public class GestioneAziendaTrasporto {
@@ -56,8 +54,8 @@ public class GestioneAziendaTrasporto {
 		/* Creazione tratta */
 //		Tratta tratta = new Tratta("Milano", "Roma", 500, 1000);
 //		trattaDao.save(tratta);
-		Tratta tratta01 = new Tratta("Piazza Carducci", "Corso Giulio Cesare", 10.6, 32.6);
-		trattaDao.save(tratta01);
+//		Tratta tratta01 = new Tratta("Piazza Carducci", "Corso Giulio Cesare", 10.6);
+//		trattaDao.save(tratta01);
 		/* Creazione rivenditore autorizzato */
 		RivenditoreAutorizzato rivenditoreAutorizzato01 = new RivenditoreAutorizzato(
 				"Via Sandro Pertini, 26", "Tabaccheria 'Ciao Mondo'");
@@ -129,9 +127,10 @@ public class GestioneAziendaTrasporto {
 //		Mezzi mezzo = new Mezzi("AS-898-DF", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM, 43);
 //		mezzo.setTratta(tratta);
 //		mezzoDao.save(mezzo);
-		Mezzi mezzo01 = new Mezzi("HA-675-JU", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS, 32);
-		mezzo01.setTratta(tratta01);
-		mezzoDao.save(mezzo01);
+		// Mezzi mezzo01 = new Mezzi("HA-675-JU", StatoMezzo.IN_SERVIZIO,
+		// TipoMezzo.AUTOBUS, 32);
+//		mezzo01.setTratta(tratta01);
+//		mezzoDao.save(mezzo01);
 		;
 		/* Creazione manutenzione */
 //		Manutenzione manutenzione = new Manutenzione("Cambio olio", LocalDate.now(), LocalDate.now().plusDays(3), 3,
