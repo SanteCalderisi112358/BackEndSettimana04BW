@@ -54,10 +54,10 @@ public class GestioneAziendaTrasporto {
 		PuntoEmissioneDao puntoEmissioneDao = new PuntoEmissioneDao(em);
 
 		/* Creazione tratta */
-//		Tratta tratta = new Tratta("Milano", "Roma", 500, 1000);
-//		trattaDao.save(tratta);
-//		Tratta tratta01 = new Tratta("Piazza Carducci", "Corso Giulio Cesare", 10.6);
-//		trattaDao.save(tratta01);
+		Tratta tratta = new Tratta("Milano", "Roma", 38.4);
+		trattaDao.save(tratta);
+		Tratta tratta01 = new Tratta("Piazza Carducci", "Corso Giulio Cesare", 10.6);
+		trattaDao.save(tratta01);
 		/* Creazione rivenditore autorizzato */
 		RivenditoreAutorizzato rivenditoreAutorizzato01 = new RivenditoreAutorizzato(
 				"Via Sandro Pertini, 26", "Tabaccheria 'Ciao Mondo'");
@@ -126,13 +126,12 @@ public class GestioneAziendaTrasporto {
 		// ticketDao.save(biglietto01);
 
 		/* Creazione mezzo */
-//		Mezzi mezzo = new Mezzi("AS-898-DF", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM, 43);
-//		mezzo.setTratta(tratta);
-//		mezzoDao.save(mezzo);
-		// Mezzi mezzo01 = new Mezzi("HA-675-JU", StatoMezzo.IN_SERVIZIO,
-		// TipoMezzo.AUTOBUS, 32);
-//		mezzo01.setTratta(tratta01);
-//		mezzoDao.save(mezzo01);
+		Mezzi mezzo = new Mezzi("AS-898-DF", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM);
+		mezzo.setTratta(tratta);
+		// mezzoDao.save(mezzo);
+		Mezzi mezzo01 = new Mezzi("HA-675-JU", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS);
+		mezzo01.setTratta(tratta01);
+		// mezzoDao.save(mezzo01);
 		;
 		/* Creazione manutenzione */
 //		Manutenzione manutenzione = new Manutenzione("Cambio olio", LocalDate.now(), LocalDate.now().plusDays(3), 3,
@@ -404,13 +403,16 @@ public class GestioneAziendaTrasporto {
 							Biglietto biglietto = (Biglietto) ticketDao
 									.getById(UUID.fromString(idBigliettoDaVidiminare));
 							if(biglietto.isTimbrato()) {
-								System.out.println("Il biglietto con id "+biglietto.getId()+" è stato già obliterato");
-								return;
+								System.err.println(
+										"Il biglietto con id " + biglietto.getId() + " è stato già obliterato");
+								break;
 							}
 							System.out.println("Inserire targa del mezzo");
 							System.out.println("0. Torna indietro");
 							String mezzoChetimbra = input.nextLine();
-							if (mezzoChetimbra.equals("0"))
+							if (mezzoChetimbra.equals("0")) {
+								break;
+							}
 //							System.out.println("Inserire tessera");
 //							String tessera = input.nextLine();
 								timbrato(UUID.fromString(idBigliettoDaVidiminare), mezzoChetimbra, ticketDao, mezzoDao,
@@ -462,10 +464,10 @@ public class GestioneAziendaTrasporto {
 						if (targaMezzoStatistiche.equals("0")) {
 							break;
 						}
-						Mezzi mezzo = em.find(Mezzi.class, targaMezzoStatistiche);
-						mezzo.getMaxTempoPercorrenza();
-						mezzo.getMinTempoPercorrenza();
-						mezzo.getMediaTempiPercorrenza();
+						Mezzi mezzoStatistiche = em.find(Mezzi.class, targaMezzoStatistiche);
+						mezzoStatistiche.getMaxTempoPercorrenza();
+						mezzoStatistiche.getMinTempoPercorrenza();
+						mezzoStatistiche.getMediaTempiPercorrenza();
 						System.out.println("**********");
 						break;
 					case 3:
@@ -481,9 +483,9 @@ public class GestioneAziendaTrasporto {
 						if (targaMezzoPerTratta.equals("0")) {
 							break;
 						}
-						Tratta tratta = em.find(Tratta.class, idtratta);
+						Tratta trattaStatistiche = em.find(Tratta.class, idtratta);
 						Mezzi mezzoPerTratta = em.find(Mezzi.class, targaMezzoPerTratta);
-						tratta.comparazioneTempoPercorrenza(mezzoPerTratta);
+						trattaStatistiche.comparazioneTempoPercorrenza(mezzoPerTratta);
 						System.out.println("**********");
 
 						break;
