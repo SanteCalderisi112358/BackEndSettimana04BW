@@ -241,4 +241,9 @@ public class Mezzi {
 		return min;
 	}
 
+	@Override
+	public String toString() {
+		return "Mezzi [targa=" + targa + ", capienza=" + capienza + ", tipoMezzo=" + tipoMezzo + "]";
+	}
+
 }

@@ -70,6 +70,8 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,4 +130,32 @@ public class StoricoTratteDao {
 		}
 
 	}
+
+	public void statisticheTempo(String targa) {
+		try {
+			TypedQuery<Double> tEffettivoPerMezzoQuery = em
+					.createQuery("SELECT teffettivo FROM storicotratte WHERE mezzo_targa LIKE :targa", Double.class);
+			tEffettivoPerMezzoQuery.setParameter("targa", targa);
+			double tEffettivoPerMezzo = tEffettivoPerMezzoQuery.getSingleResult();
+
+			TypedQuery<Long> totaleQuery = em.createQuery("SELECT COUNT(teffettivo) FROM storicotratte", Long.class);
+			long totale = totaleQuery.getSingleResult();
+
+			TypedQuery<Double> sommaQuery = em.createQuery("SELECT SUM(teffettivo) FROM storicotratte", Double.class);
+			double sommaDouble = sommaQuery.getSingleResult();
+
+			double media = sommaDouble / totale;
+
+			if (tEffettivoPerMezzo > media) {
+				System.err.println("Il mezzo con targa " + targa + " impiega più tempo di tutti");
+			} else {
+				System.err.println("Il mezzo con targa " + targa + " impiega meno tempo di tutti");
+			}
+		} catch (NoResultException ex) {
+			System.err.println("Nessun risultato trovato per la targa " + targa);
+		} catch (Exception ex) {
+			System.err.println("Errore: " + ex.getMessage());
+		}
+	}
+
 }

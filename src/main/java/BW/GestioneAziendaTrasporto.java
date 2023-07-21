@@ -62,11 +62,11 @@ public class GestioneAziendaTrasporto {
 		Utente giulio = new Utente("Giulio", "Di Carlo");
 		Utente laura = new Utente("Laura", "Zazzera");
 
-		utenteDao.save(erika);
-		utenteDao.save(giulio);
-		utenteDao.save(andrea);
-		utenteDao.save(laura);
-		utenteDao.save(sante);
+//		utenteDao.save(erika);
+//		utenteDao.save(giulio);
+//		utenteDao.save(andrea);
+//		utenteDao.save(laura);
+//		utenteDao.save(sante);
 
 		/* Creazione tessere */
 		Tessera tesseraSante = new Tessera(LocalDate.of(2023, 6, 12), sante);
@@ -76,19 +76,19 @@ public class GestioneAziendaTrasporto {
 		Tessera tesseraLaura = new Tessera(LocalDate.of(2023, 8, 4), laura);
 		Tessera tesseraScaduta01 = new Tessera(LocalDate.of(2021, 8, 8), sante);
 
-		tesseraDao.save(tesseraScaduta01);
-		tesseraDao.save(tesseraAndrea);
-		tesseraDao.save(tesseraErika);
-		tesseraDao.save(tesseraGiulio);
-		tesseraDao.save(tesseraSante);
-		tesseraDao.save(tesseraLaura);
+//		tesseraDao.save(tesseraScaduta01);
+//		tesseraDao.save(tesseraAndrea);
+//		tesseraDao.save(tesseraErika);
+//		tesseraDao.save(tesseraGiulio);
+//		tesseraDao.save(tesseraSante);
+//		tesseraDao.save(tesseraLaura);
 
 		/* Creazione tratta */
 		Tratta tratta = new Tratta("Milano", "Roma", 38.4);
 		Tratta tratta01 = new Tratta("Piazza Carducci", "Corso Giulio Cesare", 10.6);
 
-		trattaDao.save(tratta);
-		trattaDao.save(tratta01);
+//		trattaDao.save(tratta);
+//		trattaDao.save(tratta01);
 
 		/* Creazione rivenditore autorizzato */
 		RivenditoreAutorizzato rivenditoreAutorizzato01 = new RivenditoreAutorizzato("Via Sandro Pertini, 26",
@@ -102,11 +102,11 @@ public class GestioneAziendaTrasporto {
 		RivenditoreAutorizzato rivenditoreAutorizzato05 = new RivenditoreAutorizzato(f.address().fullAddress(),
 				"Tabaccheria Ciao Mondo");
 
-		puntoEmissioneDao.save(rivenditoreAutorizzato01);
-		puntoEmissioneDao.save(rivenditoreAutorizzato02);
-		puntoEmissioneDao.save(rivenditoreAutorizzato03);
-		puntoEmissioneDao.save(rivenditoreAutorizzato04);
-		puntoEmissioneDao.save(rivenditoreAutorizzato05);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato01);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato02);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato03);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato04);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato05);
 
 		/* Creazione distributori automatici */
 
@@ -121,11 +121,11 @@ public class GestioneAziendaTrasporto {
 		DistributoreAutomatico distributore05 = new DistributoreAutomatico(f.address().fullAddress(),
 				StatoServizio.ATTIVO);
 
-		puntoEmissioneDao.save(distributore01);
-		puntoEmissioneDao.save(distributore02);
-		puntoEmissioneDao.save(distributore03);
-		puntoEmissioneDao.save(distributore04);
-		puntoEmissioneDao.save(distributore05);
+//		puntoEmissioneDao.save(distributore01);
+//		puntoEmissioneDao.save(distributore02);
+//		puntoEmissioneDao.save(distributore03);
+//		puntoEmissioneDao.save(distributore04);
+//		puntoEmissioneDao.save(distributore05);
 
 		/* Creazione Biglietti */
 		Biglietto biglietto01 = new Biglietto(LocalDate.of(2023, 4, 2), tesseraLaura, rivenditoreAutorizzato01);
@@ -134,11 +134,11 @@ public class GestioneAziendaTrasporto {
 		Biglietto biglietto04 = new Biglietto(LocalDate.of(2023, 7, 21), tesseraErika, distributore04);
 		Biglietto biglietto05 = new Biglietto(LocalDate.of(2023, 7, 19), tesseraSante, distributore01);
 
-		ticketDao.save(biglietto01);
-		ticketDao.save(biglietto02);
-		ticketDao.save(biglietto03);
-		ticketDao.save(biglietto04);
-		ticketDao.save(biglietto05);
+//		ticketDao.save(biglietto01);
+//		ticketDao.save(biglietto02);
+//		ticketDao.save(biglietto03);
+//		ticketDao.save(biglietto04);
+//		ticketDao.save(biglietto05);
 
 		/* Creazione mezzo */
 		Mezzi mezzo01 = new Mezzi("HA-675-JU", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS);
@@ -152,11 +152,11 @@ public class GestioneAziendaTrasporto {
 		Mezzi mezzo05 = new Mezzi("YT-034-KL", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM);
 		mezzo05.setTratta(tratta);
 
-		mezzoDao.save(mezzo01);
-		mezzoDao.save(mezzo02);
-		mezzoDao.save(mezzo03);
-		mezzoDao.save(mezzo04);
-		mezzoDao.save(mezzo05);
+//		mezzoDao.save(mezzo01);
+//		mezzoDao.save(mezzo02);
+//		mezzoDao.save(mezzo03);
+//		mezzoDao.save(mezzo04);
+//		mezzoDao.save(mezzo05);
 
 		/* Creazione manutenzione */
 		Manutenzione manutenzione01 = new Manutenzione("Cambio olio", LocalDate.now(), LocalDate.now().plusDays(3), 3,
@@ -164,23 +164,24 @@ public class GestioneAziendaTrasporto {
 		Manutenzione manutenzione02 = new Manutenzione("Cambio gomme", LocalDate.now(), LocalDate.now().plusDays(3), 3,
 				mezzo05);
 
-		manutenzioneDao.save(manutenzione01);
-		manutenzioneDao.save(manutenzione02);
+//		manutenzioneDao.save(manutenzione01);
+//		manutenzioneDao.save(manutenzione02);
 
 		/* Creazione storicoTratte */
-		StoricoTratte storicoTratte = new StoricoTratte(10.5, mezzo01, tratta01);
+		StoricoTratte storicoTratte1 = new StoricoTratte(10.5, mezzo01, tratta01);
 		StoricoTratte storicoTratte2 = new StoricoTratte(15.5, mezzo03, tratta);
-		/*
-		 * StoricoTratte storicoTratte3 = new StoricoTratte(12, mezzo04, tratta01);
-		 * StoricoTratte storicoTratte4 = new StoricoTratte(12.5, mezzo02, tratta);
-		 * StoricoTratte storicoTratte5 = new StoricoTratte(9.5, mezzo05, tratta01);
-		 */
-		storicoTratteDao.save(storicoTratte);
-		storicoTratteDao.save(storicoTratte2);
-		/*
-		 * storicoTratteDao.save(storicoTratte3); storicoTratteDao.save(storicoTratte4);
-		 * storicoTratteDao.save(storicoTratte5);
-		 */
+		StoricoTratte storicoTratte3 = new StoricoTratte(11.5, mezzo01, tratta01);
+		StoricoTratte storicoTratte4 = new StoricoTratte(8, mezzo01, tratta01);
+		StoricoTratte storicoTratte5 = new StoricoTratte(9.5, mezzo05, tratta01);
+
+//		storicoTratteDao.save(storicoTratte3);
+//		storicoTratteDao.save(storicoTratte4);
+//		storicoTratteDao.save(storicoTratte1);
+//		storicoTratteDao.save(storicoTratte2);
+//		
+//		storicoTratteDao.save(storicoTratte3);
+//		storicoTratteDao.save(storicoTratte4);
+//		storicoTratteDao.save(storicoTratte5);
 
 
 
@@ -194,8 +195,8 @@ public class GestioneAziendaTrasporto {
 
 		/* PROVE VARIE */
 
-		// mezzo.getManutenzioni().add(manutenzione);
-		// mezzoDao.refresh(mezzo);
+//		mezzo.getManutenzioni().add(manutenzione);
+//		mezzoDao.refresh(mezzo);
 
 //		List<Mezzi> mezziPerTratta = mezzoDao.trovaPerTratta(tratta.getId());
 //		System.out.println("Mezzi per la tratta " + tratta.getId() + ": " + mezziPerTratta.size());
@@ -510,10 +511,12 @@ public class GestioneAziendaTrasporto {
 							break;
 						}
 						Mezzi mezzoStatistiche = em.find(Mezzi.class, targaMezzoStatistiche);
-						mezzoStatistiche.getMaxTempoPercorrenza();
-						mezzoStatistiche.getMinTempoPercorrenza();
-						mezzoStatistiche.getMediaTempiPercorrenza();
+						System.out.println(mezzoStatistiche.getMaxTempoPercorrenza() + " "
+								+ mezzoStatistiche.getMinTempoPercorrenza() + " "
+								+ mezzoStatistiche.getMediaTempiPercorrenza());
+
 						System.out.println("**********");
+//						storicoTratteDao.statisticheTempo(targaMezzoStatistiche);
 						break;
 					case 3:
 						System.out.println("Inserire id della tratta per le statistiche temporali");
@@ -528,7 +531,7 @@ public class GestioneAziendaTrasporto {
 						if (targaMezzoPerTratta.equals("0")) {
 							break;
 						}
-						Tratta trattaStatistiche = em.find(Tratta.class, idtratta);
+						Tratta trattaStatistiche = em.find(Tratta.class, UUID.fromString(idtratta));
 						Mezzi mezzoPerTratta = em.find(Mezzi.class, targaMezzoPerTratta);
 						trattaStatistiche.comparazioneTempoPercorrenza(mezzoPerTratta);
 						System.out.println("**********");
@@ -541,7 +544,7 @@ public class GestioneAziendaTrasporto {
 						if (idTrattaPerMezzi.equals("0")) {
 							break;
 						}
-						mezzoDao.trovaPerTratta(UUID.fromString(idTrattaPerMezzi));
+						mezzoDao.trovaPerTratta(UUID.fromString(idTrattaPerMezzi)).forEach(m -> System.err.println(m));
 						System.out.println("**********");
 
 						break;
@@ -580,37 +583,28 @@ public class GestioneAziendaTrasporto {
 						break;
 
 					case 6:
-						int statoMezzoScelta = -100;
-						do {
+						int statoMezzoScelta = -1;
 
+						do {
 							System.out.println("1. Conta il numero di mezzi in servizio");
 							System.out.println("2. Conta il numero di mezzi in manutenzione");
 							System.out.println("0. Torna indietro");
 							System.out.println("**********");
 
-							tipoMezzoScelta = Integer.parseInt(input.nextLine());
+							statoMezzoScelta = Integer.parseInt(input.nextLine());
 
 							switch (statoMezzoScelta) {
 							case 1:
 								System.err.println(
-										"I mezzi in servizio sono: " + mezzoDao.countByStato(StatoMezzo.IN_SERVIZIO));
+										"I mezzi in servizio:\n ");
+								mezzoDao.getMezziInSerivizio().forEach(m -> System.err.println(m));
 								System.out.println("**********");
-
 								break;
 							case 2:
 								System.err.println(
-										"I tram presenti sono: " + mezzoDao.countByStato(StatoMezzo.IN_MANUTENZIONE));
+										"I mezzi in manutenzione:\n ");
+								mezzoDao.getMezziInManutenzione().forEach(m -> System.err.println(m));
 								System.out.println("**********");
-
-
-								break;
-
-							case 7:
-								System.out.println("Inserire targa del mezzo");
-								String targaMezzoCambioStato = input.nextLine();
-								mezzoDao.cambiaStato(targaMezzoCambioStato);
-								System.out.println("**********");
-
 								break;
 							case 0:
 								break;
@@ -618,6 +612,14 @@ public class GestioneAziendaTrasporto {
 								System.out.println("Scelta non valida.");
 							}
 						} while (statoMezzoScelta != 0);
+						break;
+
+					case 7:
+						System.out.println("Inserire targa del mezzo");
+						String targaMezzoCambioStato = input.nextLine();
+						mezzoDao.cambiaStato(targaMezzoCambioStato);
+						System.out.println("**********");
+
 						break;
 					case 8:
 						System.out.println("Inserire targa");

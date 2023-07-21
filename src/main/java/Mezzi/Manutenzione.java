@@ -90,7 +90,7 @@ public class Manutenzione {
 	@Override
 	public String toString() {
 		return "Manutenzione [idManutenzione=" + idManutenzione + ", descrizione=" + descrizione + ", dataInizio="
-				+ dataInizio + ", dataFine=" + dataFine + ", durata=" + durata + ", mezzo=" + mezzo + "]";
+				+ dataInizio + ", dataFine=" + dataFine + ", durata=" + durata + "]";
 	}
 
 }

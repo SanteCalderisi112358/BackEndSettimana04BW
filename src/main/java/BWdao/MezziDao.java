@@ -136,7 +136,7 @@ public class MezziDao {
 //	}
 	public List<Mezzi> trovaPerTratta(UUID idTratta) {
 		if (idTratta == null) {
-			throw new IllegalArgumentException("ID Tratta non può essere nullo");
+			System.out.println("ID Tratta non può essere nullo");
 
 		}
 
@@ -163,9 +163,35 @@ public class MezziDao {
 
 	// conta i mezzi in base al loro stato
 	public Long countByStato(StatoMezzo statoMezzo) {
-		TypedQuery<Long> query = em.createQuery("SELECT COUNT(m) FROM Mezzi m WHERE m.statoMezzo = :stato", Long.class);
+		TypedQuery<Long> query = em.createQuery("SELECT * FROM Mezzi m WHERE m.statoMezzo = :stato", Long.class);
 		query.setParameter("stato", statoMezzo);
 		return query.getSingleResult();
+	}
+
+	public List<Mezzi> getMezziInManutenzione() {
+		TypedQuery<Mezzi> query = em.createQuery("SELECT m FROM Mezzi m WHERE m.statoMezzo = :stato", Mezzi.class);
+		query.setParameter("stato", StatoMezzo.IN_MANUTENZIONE);
+
+		try {
+			return query.getResultList();
+		} catch (Exception e) {
+			System.err.println("An error occurred while fetching Mezzi in manutenzione: " + e.getMessage());
+			e.printStackTrace();
+			return Collections.emptyList();
+		}
+	}
+
+	public List<Mezzi> getMezziInSerivizio() {
+		TypedQuery<Mezzi> query = em.createQuery("SELECT m FROM Mezzi m WHERE m.statoMezzo = :stato", Mezzi.class);
+		query.setParameter("stato", StatoMezzo.IN_SERVIZIO);
+
+		try {
+			return query.getResultList();
+		} catch (Exception e) {
+			System.err.println("An error occurred while fetching Mezzi in manutenzione: " + e.getMessage());
+			e.printStackTrace();
+			return Collections.emptyList();
+		}
 	}
 
 	// cambia stato
