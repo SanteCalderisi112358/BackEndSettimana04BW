@@ -19,6 +19,9 @@ public class DistributoreAutomatico extends PuntoEmissione {
 		this.statoServizio = statoServizio;
 	}
 
+	public StatoServizio setStatoServizioCheck() {
+		return this.statoServizio;
+	}
 	@Override
 	public String toString() {
 		return "DistributoreAutomatico [Stato Servizio=" + statoServizio + ", indirizzo=" + getIndirizzo() + "]";

@@ -88,11 +88,11 @@ public class GestioneAziendaTrasporto {
 				StatoServizio.ATTIVO);
 		DistributoreAutomatico distributore05 = new DistributoreAutomatico(f.address().fullAddress(),
 				StatoServizio.ATTIVO);
-//		puntoEmissioneDao.save(distributore01);
-//		puntoEmissioneDao.save(distributore02);
-//		puntoEmissioneDao.save(distributore03);
-//		puntoEmissioneDao.save(distributore04);
-//		puntoEmissioneDao.save(distributore05);
+		puntoEmissioneDao.save(distributore01);
+		puntoEmissioneDao.save(distributore02);
+		puntoEmissioneDao.save(distributore03);
+		puntoEmissioneDao.save(distributore04);
+		puntoEmissioneDao.save(distributore05);
 
 		/* Creazione e salvataggio nuovi utenti nel DB */
 		Utente sante = new Utente("Sante", "Calderisi");
@@ -253,6 +253,7 @@ public class GestioneAziendaTrasporto {
 						case 4:
 							System.out.println("Inserisci il tuo numero di tessera");
 							System.out.println("0. Torna indietro");
+
 							String numeroTesseraPerTicket = input.nextLine();
 							if (numeroTesseraPerTicket.equals("0")) {
 								break;
@@ -329,6 +330,15 @@ public class GestioneAziendaTrasporto {
 									System.err.println("Scelta non valida");
 								}
 
+								if (puntoEmissioneScelto instanceof DistributoreAutomatico) {
+									DistributoreAutomatico distributoreAutomatico = (DistributoreAutomatico) puntoEmissioneScelto;
+									if (distributoreAutomatico.setStatoServizioCheck()
+											.equals(StatoServizio.FUORI_SERVIZIO)) {
+										System.out.println(
+												"Il Distributore Automatico selezionato è fuori servizio. Torna indietro...");
+										continue; // Return to the previous loop iteration
+									}
+								}
 								System.out.println("Digita:");
 								System.out.println("1. Se vuoi acquistare un nuovo Abbonamento");
 								System.out.println("2. Se vuoi acquistare un nuovo Biglietto");
