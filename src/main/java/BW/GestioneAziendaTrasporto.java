@@ -32,7 +32,9 @@ import BWenum.StatoServizio;
 import BWenum.TipoAbbonamento;
 import BWenum.TipoMezzo;
 import BWutils.JpaUtil;
+import Mezzi.Manutenzione;
 import Mezzi.Mezzi;
+import Mezzi.StoricoTratte;
 import Mezzi.Tratta;
 
 
@@ -53,14 +55,44 @@ public class GestioneAziendaTrasporto {
 		StoricoTratteDao storicoTratteDao = new StoricoTratteDao(em);
 		PuntoEmissioneDao puntoEmissioneDao = new PuntoEmissioneDao(em);
 
+		/* Creazione e salvataggio nuovi utenti nel DB */
+		Utente sante = new Utente("Sante", "Calderisi");
+		Utente erika = new Utente("Erika", "Quitadamo");
+		Utente andrea = new Utente("Andrea", "Loto");
+		Utente giulio = new Utente("Giulio", "Di Carlo");
+		Utente laura = new Utente("Laura", "Zazzera");
+
+		utenteDao.save(erika);
+		utenteDao.save(giulio);
+		utenteDao.save(andrea);
+		utenteDao.save(laura);
+		utenteDao.save(sante);
+
+		/* Creazione tessere */
+		Tessera tesseraSante = new Tessera(LocalDate.of(2023, 6, 12), sante);
+		Tessera tesseraAndrea = new Tessera(LocalDate.of(2023, 6, 12), andrea);
+		Tessera tesseraErika = new Tessera(LocalDate.of(2022, 5, 23), erika);
+		Tessera tesseraGiulio = new Tessera(LocalDate.of(2020, 12, 7), giulio);
+		Tessera tesseraLaura = new Tessera(LocalDate.of(2023, 8, 4), laura);
+		Tessera tesseraScaduta01 = new Tessera(LocalDate.of(2021, 8, 8), sante);
+
+		tesseraDao.save(tesseraScaduta01);
+		tesseraDao.save(tesseraAndrea);
+		tesseraDao.save(tesseraErika);
+		tesseraDao.save(tesseraGiulio);
+		tesseraDao.save(tesseraSante);
+		tesseraDao.save(tesseraLaura);
+
 		/* Creazione tratta */
 		Tratta tratta = new Tratta("Milano", "Roma", 38.4);
-		trattaDao.save(tratta);
 		Tratta tratta01 = new Tratta("Piazza Carducci", "Corso Giulio Cesare", 10.6);
+
+		trattaDao.save(tratta);
 		trattaDao.save(tratta01);
+
 		/* Creazione rivenditore autorizzato */
-		RivenditoreAutorizzato rivenditoreAutorizzato01 = new RivenditoreAutorizzato(
-				"Via Sandro Pertini, 26", "Tabaccheria 'Ciao Mondo'");
+		RivenditoreAutorizzato rivenditoreAutorizzato01 = new RivenditoreAutorizzato("Via Sandro Pertini, 26",
+				"Tabaccheria 'Ciao Mondo'");
 		RivenditoreAutorizzato rivenditoreAutorizzato02 = new RivenditoreAutorizzato("Via del Corso, 10",
 				"Tabaccheria 'Del Corso'");
 		RivenditoreAutorizzato rivenditoreAutorizzato03 = new RivenditoreAutorizzato("Via Veneto, 56",
@@ -70,11 +102,11 @@ public class GestioneAziendaTrasporto {
 		RivenditoreAutorizzato rivenditoreAutorizzato05 = new RivenditoreAutorizzato(f.address().fullAddress(),
 				"Tabaccheria Ciao Mondo");
 
-//		puntoEmissioneDao.save(rivenditoreAutorizzato01);
-//		puntoEmissioneDao.save(rivenditoreAutorizzato02);
-//		puntoEmissioneDao.save(rivenditoreAutorizzato03);
-//		puntoEmissioneDao.save(rivenditoreAutorizzato04);
-//		puntoEmissioneDao.save(rivenditoreAutorizzato05);
+		puntoEmissioneDao.save(rivenditoreAutorizzato01);
+		puntoEmissioneDao.save(rivenditoreAutorizzato02);
+		puntoEmissioneDao.save(rivenditoreAutorizzato03);
+		puntoEmissioneDao.save(rivenditoreAutorizzato04);
+		puntoEmissioneDao.save(rivenditoreAutorizzato05);
 
 		/* Creazione distributori automatici */
 
@@ -88,67 +120,74 @@ public class GestioneAziendaTrasporto {
 				StatoServizio.ATTIVO);
 		DistributoreAutomatico distributore05 = new DistributoreAutomatico(f.address().fullAddress(),
 				StatoServizio.ATTIVO);
+
 		puntoEmissioneDao.save(distributore01);
 		puntoEmissioneDao.save(distributore02);
 		puntoEmissioneDao.save(distributore03);
 		puntoEmissioneDao.save(distributore04);
 		puntoEmissioneDao.save(distributore05);
 
-		/* Creazione e salvataggio nuovi utenti nel DB */
-		Utente sante = new Utente("Sante", "Calderisi");
-		Utente erika = new Utente("Erika", "Quitadamo");
-		Utente andrea = new Utente("Andrea", "Loto");
-		Utente giulio = new Utente("Giulio", "Di Carlo");
-		Utente laura = new Utente("Laura", "Zazzera");
-//		utenteDao.save(erika);
-//		utenteDao.save(giulio);
-//		utenteDao.save(andrea);
-//		utenteDao.save(laura);
-//		utenteDao.save(sante);
-
-		/* Creazione tessere */
-		Tessera tesseraSante = new Tessera(LocalDate.of(2023, 6, 12), sante);
-		Tessera tesseraAndrea = new Tessera(LocalDate.of(2023, 6, 12), andrea);
-		Tessera tesseraErika = new Tessera(LocalDate.of(2022, 5, 23), erika);
-		Tessera tesseraGiulio = new Tessera(LocalDate.of(2020, 12, 7), giulio);
-		Tessera tesseraLaura = new Tessera(LocalDate.of(2023, 8, 4), laura);
-		Tessera tesseraScaduta01 = new Tessera(LocalDate.of(2021, 8, 8), sante);
-//		tesseraDao.save(tesseraScaduta01);
-
-//		tesseraDao.save(tesseraAndrea);
-//		tesseraDao.save(tesseraErika);
-//		tesseraDao.save(tesseraGiulio);
-//		tesseraDao.save(tesseraSante);
-//		tesseraDao.save(tesseraLaura);
-
 		/* Creazione Biglietti */
 		Biglietto biglietto01 = new Biglietto(LocalDate.of(2023, 4, 2), tesseraLaura, rivenditoreAutorizzato01);
-		// ticketDao.save(biglietto01);
+		Biglietto biglietto02 = new Biglietto(LocalDate.of(2023, 5, 12), tesseraGiulio, rivenditoreAutorizzato02);
+		Biglietto biglietto03 = new Biglietto(LocalDate.of(2023, 3, 13), tesseraAndrea, rivenditoreAutorizzato03);
+		Biglietto biglietto04 = new Biglietto(LocalDate.of(2023, 7, 21), tesseraErika, distributore04);
+		Biglietto biglietto05 = new Biglietto(LocalDate.of(2023, 7, 19), tesseraSante, distributore01);
+
+		ticketDao.save(biglietto01);
+		ticketDao.save(biglietto02);
+		ticketDao.save(biglietto03);
+		ticketDao.save(biglietto04);
+		ticketDao.save(biglietto05);
 
 		/* Creazione mezzo */
-		Mezzi mezzo = new Mezzi("AS-898-DF", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM);
-		mezzo.setTratta(tratta);
-		// mezzoDao.save(mezzo);
 		Mezzi mezzo01 = new Mezzi("HA-675-JU", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS);
 		mezzo01.setTratta(tratta01);
-		// mezzoDao.save(mezzo01);
-		;
+		Mezzi mezzo02 = new Mezzi("AG-557-JH", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM);
+		mezzo02.setTratta(tratta);
+		Mezzi mezzo03 = new Mezzi("LH-835-JS", StatoMezzo.IN_SERVIZIO, TipoMezzo.AUTOBUS);
+		mezzo03.setTratta(tratta01);
+		Mezzi mezzo04 = new Mezzi("DA-629-BF", StatoMezzo.IN_SERVIZIO, TipoMezzo.TRAM);
+		mezzo04.setTratta(tratta);
+		Mezzi mezzo05 = new Mezzi("YT-034-KL", StatoMezzo.IN_MANUTENZIONE, TipoMezzo.TRAM);
+		mezzo05.setTratta(tratta);
+
+		mezzoDao.save(mezzo01);
+		mezzoDao.save(mezzo02);
+		mezzoDao.save(mezzo03);
+		mezzoDao.save(mezzo04);
+		mezzoDao.save(mezzo05);
+
 		/* Creazione manutenzione */
-//		Manutenzione manutenzione = new Manutenzione("Cambio olio", LocalDate.now(), LocalDate.now().plusDays(3), 3,
-//				mezzo);
-		// manutenzioneDao.save(manutenzione);
+		Manutenzione manutenzione01 = new Manutenzione("Cambio olio", LocalDate.now(), LocalDate.now().plusDays(3), 3,
+				mezzo02);
+		Manutenzione manutenzione02 = new Manutenzione("Cambio gomme", LocalDate.now(), LocalDate.now().plusDays(3), 3,
+				mezzo05);
+
+		manutenzioneDao.save(manutenzione01);
+		manutenzioneDao.save(manutenzione02);
 
 		/* Creazione storicoTratte */
-//		StoricoTratte storicoTratte = new StoricoTratte(10.5, mezzo);
-//		StoricoTratte storicoTratte2 = new StoricoTratte(15.5, mezzo);
-//		StoricoTratte storicoTratte3 = new StoricoTratte(12, mezzo);
-//		StoricoTratte storicoTratte4 = new StoricoTratte(12.5, mezzo);
-//		StoricoTratte storicoTratte5 = new StoricoTratte(9.5, mezzo);
-//		storicoTratteDao.save(storicoTratte);
-//		storicoTratteDao.save(storicoTratte2);
-//		storicoTratteDao.save(storicoTratte3);
-//		storicoTratteDao.save(storicoTratte4);
-//		storicoTratteDao.save(storicoTratte5);
+		StoricoTratte storicoTratte = new StoricoTratte(10.5, mezzo01, tratta01);
+		StoricoTratte storicoTratte2 = new StoricoTratte(15.5, mezzo03, tratta);
+		/*
+		 * StoricoTratte storicoTratte3 = new StoricoTratte(12, mezzo04, tratta01);
+		 * StoricoTratte storicoTratte4 = new StoricoTratte(12.5, mezzo02, tratta);
+		 * StoricoTratte storicoTratte5 = new StoricoTratte(9.5, mezzo05, tratta01);
+		 */
+		storicoTratteDao.save(storicoTratte);
+		storicoTratteDao.save(storicoTratte2);
+		/*
+		 * storicoTratteDao.save(storicoTratte3); storicoTratteDao.save(storicoTratte4);
+		 * storicoTratteDao.save(storicoTratte5);
+		 */
+
+
+
+
+
+
+
 
 
 
