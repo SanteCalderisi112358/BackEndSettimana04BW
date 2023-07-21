@@ -409,13 +409,19 @@ public class GestioneAziendaTrasporto {
 							}
 							System.out.println("Inserire targa del mezzo");
 							System.out.println("0. Torna indietro");
-							String mezzoChetimbra = input.nextLine();
-							if (mezzoChetimbra.equals("0")) {
+							String idmezzoChetimbra = input.nextLine();
+							if (idmezzoChetimbra.equals("0")) {
+								break;
+							}
+
+							Mezzi mezzoCheOblitera = mezzoDao.getById(idmezzoChetimbra);
+							if (mezzoCheOblitera.getStatoMezzo() == StatoMezzo.IN_MANUTENZIONE) {
+								System.err.println("Il mezzo scelto è in manutenzione");
 								break;
 							}
 //							System.out.println("Inserire tessera");
 //							String tessera = input.nextLine();
-								timbrato(UUID.fromString(idBigliettoDaVidiminare), mezzoChetimbra, ticketDao, mezzoDao,
+							timbrato(UUID.fromString(idBigliettoDaVidiminare), idmezzoChetimbra, ticketDao, mezzoDao,
 										em);
 							break;
 						}
