@@ -511,9 +511,11 @@ public class GestioneAziendaTrasporto {
 							break;
 						}
 						Mezzi mezzoStatistiche = em.find(Mezzi.class, targaMezzoStatistiche);
-						System.out.println(mezzoStatistiche.getMaxTempoPercorrenza() + " "
-								+ mezzoStatistiche.getMinTempoPercorrenza() + " "
-								+ mezzoStatistiche.getMediaTempiPercorrenza());
+						System.out.println("Tempo massimo di percorrenza: " + mezzoStatistiche.getMaxTempoPercorrenza()
+								+ " minuti." + "\nTempo minimo di percorrenza:  "
+								+ mezzoStatistiche.getMinTempoPercorrenza() + " minuti."
+								+ "\nTempo medio di percorrenza: "
+								+ mezzoStatistiche.getMediaTempiPercorrenza() + " minuti.");
 
 						System.out.println("**********");
 //						storicoTratteDao.statisticheTempo(targaMezzoStatistiche);
@@ -651,9 +653,9 @@ public class GestioneAziendaTrasporto {
 //				case 0:
 //					System.out.println("Arrivederci");
 //					break;
-				default:
-					System.out.println("Scelta non valida. Riprova.");
-					break;
+//				default:
+//					System.out.println("Scelta non valida. Riprova.");
+//					break;
 				}
 			}
 
