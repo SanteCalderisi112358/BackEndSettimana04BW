@@ -30,8 +30,10 @@ import BWentities.Utente;
 import BWenum.StatoMezzo;
 import BWenum.StatoServizio;
 import BWenum.TipoAbbonamento;
+import BWenum.TipoMezzo;
 import BWutils.JpaUtil;
 import Mezzi.Mezzi;
+import Mezzi.Tratta;
 
 
 public class GestioneAziendaTrasporto {
@@ -178,10 +180,9 @@ public class GestioneAziendaTrasporto {
 			int scelta = -100;
 
 			while (scelta != 0) {
-				System.out.println("Benvenuto");
-				System.out.println("Digita:");
-				System.out.println("1. Lato Utenti");
-				System.out.println("2. Lato back-Office");
+
+				System.out.println("1. Gestione per Utenza");
+				System.out.println("2. Gestione per Amministrazione");
 				System.out.println("0. Esci");
 
 				int sceltaLato;
@@ -378,36 +379,144 @@ public class GestioneAziendaTrasporto {
 
 					break;
 				case 2:
+					int sceltaBO = -100;
 					do {
-						System.out.println("1. Elenco mezzi");
-					System.out.println("2. Statistiche mezzo");
-					System.out.println("3. Cancellazione utente");
-					System.out.println("4. Manutenzioni per mezzo");
-					System.out.println("5. Mandare un mezzo in manutenzione");
+						System.out.println("1. Elenco manutenzioni per mezzo");
+						System.out.println("2. Statistiche temporali per mezzo");
+						System.out.println("3. Statistiche temporali per tratta");
+						System.out.println("4. Elenco mezzi per tratta");
+						System.out.println("5. Informazioni in base al tipo dei mezzi");
+						System.out.println("6. Informazioni in base allo stato dei mezzi");
+						System.out.println("7. Cambio stato di un mezzo da Manutenzione a In Servizio");
+						System.out.println("8. Cambia capienza del mezzo");
 					System.out.println("0. Torna indietro");
 
 					try {
-						scelta = Integer.parseInt(input.nextLine());
+						sceltaBO = Integer.parseInt(input.nextLine());
 					} catch (NumberFormatException ex) {
 						System.out.println("Inserire un numero valido!");
 						continue;
 					}
 
-					switch (scelta) {
+					switch (sceltaBO) {
 					case 1:
-						System.out.println("Aggiungi metodo 'Elenco mezzi'");
+						System.out.println("Inserire targa del mezzo per l'elenco delle manutenzioni");
+						String targaMezzoManutenzione = input.nextLine();
+						manutenzioneDao.trovaPerMezzo(targaMezzoManutenzione).forEach(m -> {
+							System.err.println(m);
+							System.out.println("**********");
+						});
+
 						break;
 					case 2:
-						System.out.println("Aggiungi metodo 'Statistiche mezzo'");
+						System.out.println("Inserire targa del mezzo per le statistiche temporali");
+						String targaMezzoStatistiche = input.nextLine();
+						Mezzi mezzo = em.find(Mezzi.class, targaMezzoStatistiche);
+						mezzo.getMaxTempoPercorrenza();
+						mezzo.getMinTempoPercorrenza();
+						mezzo.getMediaTempiPercorrenza();
+						System.out.println("**********");
 						break;
 					case 3:
-						System.out.println("Aggiungi metodo 'Cancellazione utente'");
+						System.out.println("Inserire id della tratta per le statistiche temporali");
+						String idtratta = input.nextLine();
+						System.out.println("Inserire targa del mezzo");
+						String targaMezzoPerTratta = input.nextLine();
+						Tratta tratta = em.find(Tratta.class, idtratta);
+						Mezzi mezzoPerTratta = em.find(Mezzi.class, targaMezzoPerTratta);
+						tratta.comparazioneTempoPercorrenza(mezzoPerTratta);
+						System.out.println("**********");
+
 						break;
 					case 4:
-						System.out.println("Aggiungi metodo 'Manutenzioni per mezzo'");
+						System.out.println("Inserire id della tratta per l'elenco dei mezzi a quella tratta");
+						String idTrattaPerMezzi = input.nextLine();
+						mezzoDao.trovaPerTratta(UUID.fromString(idTrattaPerMezzi));
+						System.out.println("**********");
+
 						break;
 					case 5:
-						System.out.println("Aggiungi metodo 'Mandare un mezzo in manutenzione'");
+
+						int tipoMezzoScelta;
+						do {
+
+							System.out.println("1. Conta il numero di Autobus");
+							System.out.println("2. Conta il numero di Tram");
+							System.out.println("0. Torna indietro");
+
+							tipoMezzoScelta = Integer.parseInt(input.nextLine());
+
+							switch (tipoMezzoScelta) {
+							case 1:
+								System.err.println(
+										"Gli autobus presenti sono: " + mezzoDao.countByTipoMezzo(TipoMezzo.AUTOBUS));
+								System.out.println("**********");
+
+								break;
+							case 2:
+								System.err.println(
+										"I tram presenti sono: " + mezzoDao.countByTipoMezzo(TipoMezzo.AUTOBUS));
+								System.out.println("**********");
+
+								break;
+							case 0:
+								break;
+							default:
+								System.out.println("Scelta non valida.");
+								System.out.println("**********");
+
+							}
+						} while (tipoMezzoScelta != 0);
+						break;
+
+					case 6:
+						int statoMezzoScelta = -100;
+						do {
+
+							System.out.println("1. Conta il numero di mezzi in servizio");
+							System.out.println("2. Conta il numero di mezzi in manutenzione");
+							System.out.println("0. Torna indietro");
+							System.out.println("**********");
+
+							tipoMezzoScelta = Integer.parseInt(input.nextLine());
+
+							switch (statoMezzoScelta) {
+							case 1:
+								System.err.println(
+										"I mezzi in servizio sono: " + mezzoDao.countByStato(StatoMezzo.IN_SERVIZIO));
+								System.out.println("**********");
+
+								break;
+							case 2:
+								System.err.println(
+										"I tram presenti sono: " + mezzoDao.countByStato(StatoMezzo.IN_MANUTENZIONE));
+								System.out.println("**********");
+
+
+								break;
+
+							case 7:
+								System.out.println("Inserire targa del mezzo");
+								String targaMezzoCambioStato = input.nextLine();
+								mezzoDao.cambiaStato(targaMezzoCambioStato);
+								System.out.println("**********");
+
+								break;
+							case 0:
+								break;
+							default:
+								System.out.println("Scelta non valida.");
+							}
+						} while (statoMezzoScelta != 0);
+						break;
+					case 8:
+						System.out.println("Inserire targa");
+						String targaMezzoCambioCapienza = input.nextLine();
+						System.out.println("Inserire nuova capienza");
+						int nuovaCapienza = Integer.parseInt(input.nextLine());
+						mezzoDao.cambiaCapienza(targaMezzoCambioCapienza, nuovaCapienza);
+						System.out.println("**********");
+
 						break;
 					case 0:
 
@@ -417,11 +526,11 @@ public class GestioneAziendaTrasporto {
 						break;
 					}
 					break;
-				} while (scelta != 0);
+				} while (sceltaBO != 0);
 
-				case 0:
-					System.out.println("Arrivederci");
-					break;
+//				case 0:
+//					System.out.println("Arrivederci");
+//					break;
 				default:
 					System.out.println("Scelta non valida. Riprova.");
 					break;

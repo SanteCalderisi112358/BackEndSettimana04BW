@@ -95,11 +95,11 @@ public class Tratta {
 	// confronta tempo percorrenza
 	public void comparazioneTempoPercorrenza(Mezzi mezzo) {
 		if (this.getTMedio() > mezzo.getMediaTempiPercorrenza()) {
-			System.out.println("Il mezzo ci mette meno tempo della tempo medio richiesto per la tratta.");
+			System.err.println("Il mezzo ci mette meno tempo del tempo medio richiesto per la tratta.");
 		} else if (this.getTMedio() < mezzo.getMaxTempoPercorrenza()) {
-			System.out.println("Il mezzo ci mette più tempo della tempo medio richiesto per la tratta.");
+			System.err.println("Il mezzo ci mette più tempo del tempo medio richiesto per la tratta.");
 		} else {
-			System.out.println("Il mezzo ci mette il giusto tempo per percorrere la tratta");
+			System.err.println("Il mezzo ci mette il giusto tempo per percorrere la tratta");
 		}
 	}
 

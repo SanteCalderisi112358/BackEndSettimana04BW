@@ -67,6 +67,7 @@
 
 package BWdao;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -128,11 +129,30 @@ public class MezziDao {
 	}
 
 	// trova i mezzi in base alla tratta
+//	public List<Mezzi> trovaPerTratta(UUID idTratta) {
+//		TypedQuery<Mezzi> query = em.createQuery("SELECT m FROM Mezzi m WHERE m.tratta.id = :idTratta", Mezzi.class);
+//		query.setParameter("idTratta", idTratta);
+//		return query.getResultList();
+//	}
 	public List<Mezzi> trovaPerTratta(UUID idTratta) {
+		if (idTratta == null) {
+			throw new IllegalArgumentException("ID Tratta non può essere nullo");
+
+		}
+
 		TypedQuery<Mezzi> query = em.createQuery("SELECT m FROM Mezzi m WHERE m.tratta.id = :idTratta", Mezzi.class);
 		query.setParameter("idTratta", idTratta);
-		return query.getResultList();
+
+		try {
+			return query.getResultList();
+		} catch (Exception e) {
+			System.err.println(
+					"Si è verificato un errore durante il recupero dei mezzi per la tratta con ID: " + idTratta);
+			e.printStackTrace();
+			return Collections.emptyList();
+		}
 	}
+
 
 //conta i mezzi in base al loro tipo di mezzo
 	public Long countByTipoMezzo(TipoMezzo tipoMezzo) {
@@ -159,7 +179,7 @@ public class MezziDao {
 			bot.setStatoMezzo(StatoMezzo.IN_MANUTENZIONE);
 		}
 		t.commit();
-		System.out.println("stato cambiato correttamente!");
+		System.err.println("Stato del mezzo " + targa + " cambiato correttamente!");
 	}
 
 	// cambia la capienza
@@ -169,7 +189,7 @@ public class MezziDao {
 		Mezzi mezzo = getById(targa);
 		mezzo.setCapienza(nuovaCapienza);
 		t.commit();
-		System.out.println("capienza cambiata correttamente!");
+		System.err.println("La capienza del mezzo con targa " + targa + " è stata cambiata correttamente!");
 	}
 
 }
