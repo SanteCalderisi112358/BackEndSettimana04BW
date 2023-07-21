@@ -70,11 +70,11 @@ public class GestioneAziendaTrasporto {
 		RivenditoreAutorizzato rivenditoreAutorizzato05 = new RivenditoreAutorizzato(f.address().fullAddress(),
 				"Tabaccheria Ciao Mondo");
 
-		puntoEmissioneDao.save(rivenditoreAutorizzato01);
-		puntoEmissioneDao.save(rivenditoreAutorizzato02);
-		puntoEmissioneDao.save(rivenditoreAutorizzato03);
-		puntoEmissioneDao.save(rivenditoreAutorizzato04);
-		puntoEmissioneDao.save(rivenditoreAutorizzato05);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato01);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato02);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato03);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato04);
+//		puntoEmissioneDao.save(rivenditoreAutorizzato05);
 
 		/* Creazione distributori automatici */
 
@@ -88,11 +88,11 @@ public class GestioneAziendaTrasporto {
 				StatoServizio.ATTIVO);
 		DistributoreAutomatico distributore05 = new DistributoreAutomatico(f.address().fullAddress(),
 				StatoServizio.ATTIVO);
-		puntoEmissioneDao.save(distributore01);
-		puntoEmissioneDao.save(distributore02);
-		puntoEmissioneDao.save(distributore03);
-		puntoEmissioneDao.save(distributore04);
-		puntoEmissioneDao.save(distributore05);
+//		puntoEmissioneDao.save(distributore01);
+//		puntoEmissioneDao.save(distributore02);
+//		puntoEmissioneDao.save(distributore03);
+//		puntoEmissioneDao.save(distributore04);
+//		puntoEmissioneDao.save(distributore05);
 
 		/* Creazione e salvataggio nuovi utenti nel DB */
 		Utente sante = new Utente("Sante", "Calderisi");
@@ -100,11 +100,11 @@ public class GestioneAziendaTrasporto {
 		Utente andrea = new Utente("Andrea", "Loto");
 		Utente giulio = new Utente("Giulio", "Di Carlo");
 		Utente laura = new Utente("Laura", "Zazzera");
-		utenteDao.save(erika);
-		utenteDao.save(giulio);
-		utenteDao.save(andrea);
-		utenteDao.save(laura);
-		utenteDao.save(sante);
+//		utenteDao.save(erika);
+//		utenteDao.save(giulio);
+//		utenteDao.save(andrea);
+//		utenteDao.save(laura);
+//		utenteDao.save(sante);
 
 		/* Creazione tessere */
 		Tessera tesseraSante = new Tessera(LocalDate.of(2023, 6, 12), sante);
@@ -113,7 +113,7 @@ public class GestioneAziendaTrasporto {
 		Tessera tesseraGiulio = new Tessera(LocalDate.of(2020, 12, 7), giulio);
 		Tessera tesseraLaura = new Tessera(LocalDate.of(2023, 8, 4), laura);
 		Tessera tesseraScaduta01 = new Tessera(LocalDate.of(2021, 8, 8), sante);
-		tesseraDao.save(tesseraScaduta01);
+//		tesseraDao.save(tesseraScaduta01);
 
 //		tesseraDao.save(tesseraAndrea);
 //		tesseraDao.save(tesseraErika);
@@ -216,27 +216,47 @@ public class GestioneAziendaTrasporto {
 						case 1:
 
 							System.out.println("Inserire nome del nuovo utente");
+							System.out.println("0. Torna indietro");
 							String nome = input.nextLine();
+							if (nome.equals("0")) {
+								break;
+							}
 							System.out.println("Inserire cognome del nuovo utente");
+							System.out.println("0. Torna indietro");
 							String cognome = input.nextLine();
+							if (cognome.equals("0")) {
+								break;
+							}
 							nuovaTessera(nome, cognome, utenteDao, tesseraDao);
 							break;
 						case 2:
 
 							System.out.println("Inserire il numero della tessera da eliminare");
+							System.out.println("0. Torna indietro");
 							String tesseraDaEliminare = input.nextLine();
+							if (tesseraDaEliminare.equals("0")) {
+								break;
+							}
 							eliminaTessera(tesseraDaEliminare, utenteDao, tesseraDao);
 							break;
 
 						case 3:
 
 							System.out.println("Inserisci il tuo numero tessera");
+							System.out.println("0. Torna indietro");
 							String numeroTessera = input.nextLine();
+							if (numeroTessera.equals("0")) {
+								break;
+							}
 							controlloScadenza(numeroTessera, tesseraDao, input, em);
 							break;
 						case 4:
 							System.out.println("Inserisci il tuo numero di tessera");
+							System.out.println("0. Torna indietro");
 							String numeroTesseraPerTicket = input.nextLine();
+							if (numeroTesseraPerTicket.equals("0")) {
+								break;
+							}
 							Tessera tesseraPerTicket = tesseraDao.getById(UUID.fromString(numeroTesseraPerTicket));
 							if (tesseraPerTicket != null) {
 								controlloScadenza(numeroTesseraPerTicket, tesseraDao, input, em);
@@ -255,16 +275,16 @@ public class GestioneAziendaTrasporto {
 
 									puntoEmissioneScelto = puntiEmissione.get(0);
 
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(0));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(0));
 									break;
 								case 2:
 									puntoEmissioneScelto = puntiEmissione.get(1);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(1));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(1));
 
 									break;
 								case 3:
 									puntoEmissioneScelto = puntiEmissione.get(2);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(2));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(2));
 
 									break;
 								case 4:
@@ -274,39 +294,39 @@ public class GestioneAziendaTrasporto {
 									break;
 								case 5:
 									puntoEmissioneScelto = puntiEmissione.get(4);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(4));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(4));
 
 									break;
 								case 6:
 									puntoEmissioneScelto = puntiEmissione.get(5);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(5));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(5));
 
 									break;
 								case 7:
 									puntoEmissioneScelto = puntiEmissione.get(6);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(6));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(6));
 
 									break;
 								case 8:
 									puntoEmissioneScelto = puntiEmissione.get(7);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(7));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(7));
 
 									break;
 								case 9:
 									puntoEmissioneScelto = puntiEmissione.get(8);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(8));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(8));
 
 									break;
 								case 10:
 									puntoEmissioneScelto = puntiEmissione.get(9);
-									System.out.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(9));
+									System.err.println("Hai scelto il Punto di Emissione in" + puntiEmissione.get(9));
 
 									break;
 
 								case 0:
 									System.out.println("Arrivederci");
 								default:
-									System.out.println("Scelta non valida");
+									System.err.println("Scelta non valida");
 								}
 
 								System.out.println("Digita:");
@@ -328,17 +348,17 @@ public class GestioneAziendaTrasporto {
 									switch (sceltaAbbonamento) {
 									case 1:
 										nuovoAbbonamento.setTipoAbbonamento(TipoAbbonamento.SETTIMANALE);
-										System.out.println("Hai scelto un abbonamento settimanale");
+										System.err.println("Hai scelto un abbonamento settimanale");
 										break;
 									case 2:
 										nuovoAbbonamento.setTipoAbbonamento(TipoAbbonamento.MENSILE);
-										System.out.println("Hai scelto un abbonamento mensile");
+										System.err.println("Hai scelto un abbonamento mensile");
 										break;
 									case 0:
 										System.out.println("Arrivederci");
 										break;
 									default:
-										System.out.println("Hai scelto un valore non valido");
+										System.err.println("Hai scelto un valore non valido");
 									}
 									nuovoAbbonamento.setScadenza();
 									ticketDao.save(nuovoAbbonamento);
@@ -360,18 +380,31 @@ public class GestioneAziendaTrasporto {
 								}
 
 							} else {
-								System.out.println("Il tuo numero tessera non esiste");
+								System.err.println("Il tuo numero tessera non esiste");
 							}
 
 							break;
 						case 5:
 							System.out.println("Inserire il biglietto");
-							String bigliettoDaVidiminare = input.nextLine();
+							System.out.println("0. Torna indietro");
+							String idBigliettoDaVidiminare = input.nextLine();
+							if (idBigliettoDaVidiminare.equals("0")) {
+								break;
+							}
+							Biglietto biglietto = (Biglietto) ticketDao
+									.getById(UUID.fromString(idBigliettoDaVidiminare));
+							if(biglietto.isTimbrato()) {
+								System.out.println("Il biglietto con id "+biglietto.getId()+" è stato già obliterato");
+								return;
+							}
 							System.out.println("Inserire targa del mezzo");
+							System.out.println("0. Torna indietro");
 							String mezzoChetimbra = input.nextLine();
+							if (mezzoChetimbra.equals("0"))
 //							System.out.println("Inserire tessera");
 //							String tessera = input.nextLine();
-							timbrato(UUID.fromString(bigliettoDaVidiminare), mezzoChetimbra, ticketDao, mezzoDao, em);
+								timbrato(UUID.fromString(idBigliettoDaVidiminare), mezzoChetimbra, ticketDao, mezzoDao,
+										em);
 							break;
 						}
 
@@ -394,14 +427,18 @@ public class GestioneAziendaTrasporto {
 					try {
 						sceltaBO = Integer.parseInt(input.nextLine());
 					} catch (NumberFormatException ex) {
-						System.out.println("Inserire un numero valido!");
+						System.err.println("Inserire un numero valido!");
 						continue;
 					}
 
 					switch (sceltaBO) {
 					case 1:
 						System.out.println("Inserire targa del mezzo per l'elenco delle manutenzioni");
+						System.out.println("0. Torna indietro");
 						String targaMezzoManutenzione = input.nextLine();
+						if (targaMezzoManutenzione.equals("0")) {
+							break;
+						}
 						manutenzioneDao.trovaPerMezzo(targaMezzoManutenzione).forEach(m -> {
 							System.err.println(m);
 							System.out.println("**********");
@@ -410,7 +447,11 @@ public class GestioneAziendaTrasporto {
 						break;
 					case 2:
 						System.out.println("Inserire targa del mezzo per le statistiche temporali");
+						System.out.println("0. Torna indietro");
 						String targaMezzoStatistiche = input.nextLine();
+						if (targaMezzoStatistiche.equals("0")) {
+							break;
+						}
 						Mezzi mezzo = em.find(Mezzi.class, targaMezzoStatistiche);
 						mezzo.getMaxTempoPercorrenza();
 						mezzo.getMinTempoPercorrenza();
@@ -419,9 +460,17 @@ public class GestioneAziendaTrasporto {
 						break;
 					case 3:
 						System.out.println("Inserire id della tratta per le statistiche temporali");
+						System.out.println("0. Torna indietro");
 						String idtratta = input.nextLine();
+						if (idtratta.equals("0")) {
+							break;
+						}
 						System.out.println("Inserire targa del mezzo");
+						System.out.println("0. Torna indietro");
 						String targaMezzoPerTratta = input.nextLine();
+						if (targaMezzoPerTratta.equals("0")) {
+							break;
+						}
 						Tratta tratta = em.find(Tratta.class, idtratta);
 						Mezzi mezzoPerTratta = em.find(Mezzi.class, targaMezzoPerTratta);
 						tratta.comparazioneTempoPercorrenza(mezzoPerTratta);
@@ -430,7 +479,11 @@ public class GestioneAziendaTrasporto {
 						break;
 					case 4:
 						System.out.println("Inserire id della tratta per l'elenco dei mezzi a quella tratta");
+						System.out.println("0. Torna indietro");
 						String idTrattaPerMezzi = input.nextLine();
+						if (idTrattaPerMezzi.equals("0")) {
+							break;
+						}
 						mezzoDao.trovaPerTratta(UUID.fromString(idTrattaPerMezzi));
 						System.out.println("**********");
 
@@ -511,9 +564,17 @@ public class GestioneAziendaTrasporto {
 						break;
 					case 8:
 						System.out.println("Inserire targa");
+						System.out.println("0. Torna indietro");
 						String targaMezzoCambioCapienza = input.nextLine();
+						if (targaMezzoCambioCapienza.equals("0")) {
+							break;
+						}
 						System.out.println("Inserire nuova capienza");
+						System.out.println("0. Torna indietro");
 						int nuovaCapienza = Integer.parseInt(input.nextLine());
+						if (nuovaCapienza == 0) {
+							break;
+						}
 						mezzoDao.cambiaCapienza(targaMezzoCambioCapienza, nuovaCapienza);
 						System.out.println("**********");
 

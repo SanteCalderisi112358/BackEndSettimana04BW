@@ -36,7 +36,10 @@ public class Biglietto extends Ticket {
 	}
 
 
-
+	public boolean setTimbrato()
+	{
+		return this.timbrato;
+	}
 
 
 
